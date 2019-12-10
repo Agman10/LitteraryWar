@@ -1,0 +1,10 @@
+body{
+    background-color: rgb(30, 30, 30);
+}
+
+#canvas{
+    padding: 0;
+    margin: auto;
+    display: block;
+    background-color: black;
+}
