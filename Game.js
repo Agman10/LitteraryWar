@@ -2,6 +2,9 @@ class Game {
     constructor() { }
 
     start() {
+        document.addEventListener("Space", () => {
+            player.shoot();
+        });
         setInterval(() => this.loop(), 1000 / 60);
         setInterval(() => this.logic(), 1000 / 120);
     }
@@ -34,11 +37,12 @@ class Game {
             bullet.move(0, 1)
         }
 
-        if (keysDown[32]) {
+        /* if (keysDown[32]) {
             player.shoot();
-        }
+        } */
 
 
+        player.update();
     }
 
     loop() {
@@ -47,12 +51,7 @@ class Game {
 
     render() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        player.draw()
-        bullet.draw();
-        player.bullets.forEach(bullet => {
-            bullet.draw();
-            bullet.update();
-        });
+
         ctx.save();
         ctx.font = "20px Arial";
         ctx.fillStyle = "white";
@@ -67,5 +66,12 @@ class Game {
         ctx.fillText("*", 30, 230)
         ctx.fillText("*", 380, 440)
         ctx.restore();
+
+        player.draw()
+        bullet.draw();
+        player.bullets.forEach(bullet => {
+            bullet.draw();
+            bullet.update();
+        });
     }
 }

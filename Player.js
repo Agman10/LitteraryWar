@@ -7,10 +7,17 @@ class Player {
         this.bullets = []
     }
 
+    update() {
+        for (var i = 0; i < this.bullets.length; i++) {
+            if (this.bullets[i].y < 0 - this.height) {
+                this.bullets.splice(i, 1)
+            }
+        }
+    }
     move(x, y) {
         this.x += x;
         this.y += y;
-        console.log(this.x + " " + this.y)
+        //console.log(this.x + " " + this.y)
     }
     draw() {
         //var ctx = canvas.getContext("2d");
@@ -41,7 +48,7 @@ class Player {
 
     }
     shoot() {
-        this.bullets.push(new Bullet(this.x + 6, this.y - 4));
+        this.bullets.push(new Bullet(this.x + 17, this.y - 50));
     }
 }
 player = new Player(200, 300);

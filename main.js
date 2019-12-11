@@ -18,5 +18,4 @@ document.addEventListener("keyup", event => {
 
 window.onload = () => {
     game.start();
-    console.log(player.width)
 }

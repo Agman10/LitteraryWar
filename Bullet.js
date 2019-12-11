@@ -13,7 +13,7 @@ class Bullet {
     move(x, y) {
         this.x += x;
         this.y += y;
-        console.log(this.x + " " + this.y)
+        //console.log(this.x + " " + this.y)
     }
 
     draw() {
