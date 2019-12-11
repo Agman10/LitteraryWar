@@ -2,22 +2,37 @@ class Bullet {
     constructor(x, y) {
         this.x = x;
         this.y = y;
+        this.height = 45;
+        this.width = 16;
+    }
+
+    update() {
+        this.move(0, -4);
+    }
+
+    move(x, y) {
+        this.x += x;
+        this.y += y;
+        console.log(this.x + " " + this.y)
     }
 
     draw() {
-        var pow = canvas.getContext("2d");
-        pow.font = "18px Arial";
-        pow.fillStyle = "red";
-        pow.textAlign = "center";
+        //var ctx = canvas.getContext("2d");
+        ctx.save()
+        ctx.font = "18px Arial";
+        ctx.fillStyle = "red";
+        ctx.strokeStyle = "white";
+        ctx.textAlign = "center";
+        ctx.shadowColor = "red";
+        ctx.shadowOffsetX = 0;
+        ctx.shadowOffsetY = 0;
+        ctx.shadowBlur = 10;
 
-        pow.shadowColor = "red";
-        pow.shadowOffsetX = 0;
-        pow.shadowOffsetY = 0;
-        pow.shadowBlur = 10;
-
-        pow.fillText("P", this.x, this.y);
-        pow.fillText("O", this.x, this.y + 15);
-        pow.fillText("W", this.x, this.y + 30);
+        ctx.fillText("P", this.x + 8, this.y + 14);
+        ctx.fillText("O", this.x + 8, this.y + 29);
+        ctx.fillText("W", this.x + 8, this.y + 44);
+        //ctx.strokeRect(this.x, this.y, this.width, this.height)
+        ctx.restore();
     }
 }
-bullet = new Bullet(200, 185);
+bullet = new Bullet(player.x, player.y);
