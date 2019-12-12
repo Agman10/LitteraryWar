@@ -1,19 +1,46 @@
 class Bullet {
-    constructor(x, y) {
+    constructor(x, y, xSpeed, ySpeed) {
         this.x = x;
         this.y = y;
+        this.direction = "null";
+        this.xSpeed = xSpeed;
+        this.ySpeed = ySpeed;
         this.height = 45;
         this.width = 16;
+
     }
 
     update() {
-        this.move(0, -4);
+        /* if (this.direction == "up") this.move(0, -4);
+        if (this.direction == "upRight") this.move(4, -4);
+        if (this.direction == "right") this.move(4, 0);
+        if (this.direction == "downRight") this.move(4, 4);
+        if (this.direction == "down") this.move(0, 4);
+        if (this.direction == "downLeft") this.move(-4, 4);
+        if (this.direction == "left") this.move(-4, 0);
+        if (this.direction == "upLeft") this.move(-4, -4); */
+
+        this.move(this.xSpeed, this.ySpeed)
+        //this.direction = player.direction
     }
 
     move(x, y) {
+        //if (this.direction == "up") this.y -= 4;
+        //if (this.direction == "down") this.y += 4;
         this.x += x;
         this.y += y;
         //console.log(this.x + " " + this.y)
+    }
+
+    direction() {
+        /* if (this.direction == "up") this.move(0, -4);
+        if (this.direction == "upRight") this.move(4, -4);
+        if (this.direction == "right") this.move(4, 0);
+        if (this.direction == "downRight") this.move(4, 4);
+        if (this.direction == "down") this.move(0, 4);
+        if (this.direction == "downLeft") this.move(-4, 4);
+        if (this.direction == "left") this.move(-4, 0);
+        if (this.direction == "upLeft") this.move(-4, -4); */
     }
 
     draw() {

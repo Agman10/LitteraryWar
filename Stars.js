@@ -25,8 +25,7 @@ class Stars {
         for (var i = 0; i < this.stars.length; i++) {
             if (this.stars[i].y > 500) {
                 this.stars[i].y = 0;
-                this.stars[i].random = (Math.floor(Math.random() * 15) + 5) / 10
-                //console.log(this.stars[i].random)
+                this.stars[i].random = (Math.floor(Math.random() * 15) + 5) / 10;
             }
         }
         this.move(0, this.random)
