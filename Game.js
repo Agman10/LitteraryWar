@@ -41,7 +41,7 @@ class Game {
             player.shoot();
         } */
 
-
+        stars.update()
         player.update();
     }
 
@@ -51,24 +51,15 @@ class Game {
 
     render() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
+        //stars.draw()
+        stars.stars.forEach(stars => {
+            stars.draw();
+            stars.update();
+        });
 
-        ctx.save();
-        ctx.font = "20px Arial";
-        ctx.fillStyle = "white";
-        ctx.fillText("*", 100, 100)
-        ctx.fillText("*", 63, 430)
-        ctx.fillText("*", 300, 350)
-        ctx.fillText("*", 250, 250)
-        ctx.fillText("*", 400, 150)
-        ctx.fillText("*", 300, 350)
-        ctx.fillText("*", 100, 320)
-        ctx.fillText("*", 180, 30)
-        ctx.fillText("*", 30, 230)
-        ctx.fillText("*", 380, 440)
-        ctx.restore();
 
         player.draw()
-        bullet.draw();
+        //bullet.draw();
         player.bullets.forEach(bullet => {
             bullet.draw();
             bullet.update();
