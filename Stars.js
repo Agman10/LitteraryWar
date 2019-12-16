@@ -1,24 +1,25 @@
 class Stars {
-    constructor(x, y) {
+    constructor(string, x, y) {
         this.x = x;
         this.y = y;
         this.width = 10;
         this.height = 10;
         this.stars = [];
+        this.text = string;
         this.random = (Math.floor(Math.random() * 15) + 5) / 10
     }
 
     push() {
-        this.stars.push(new Stars(this.x + 53, this.y + 56));
-        this.stars.push(new Stars(this.x + 337, this.y + 156));
-        this.stars.push(new Stars(this.x + 85, this.y + 170));
-        this.stars.push(new Stars(this.x + 213, this.y + 270));
-        this.stars.push(new Stars(this.x + 300, this.y + 380));
-        this.stars.push(new Stars(this.x + 460, this.y + 250));
-        this.stars.push(new Stars(this.x + 40, this.y + 330));
-        this.stars.push(new Stars(this.x + 250, this.y + 30));
-        this.stars.push(new Stars(this.x + 100, this.y + 480));
-        this.stars.push(new Stars(this.x + 475, this.y + 50));
+        this.stars.push(new Stars("*", this.x + 40, this.y + 330));
+        this.stars.push(new Stars("*", this.x + 53, this.y + 56));
+        this.stars.push(new Stars("*", this.x + 85, this.y + 170));
+        this.stars.push(new Stars("*", this.x + 100, this.y + 480));
+        this.stars.push(new Stars("*", this.x + 213, this.y + 270));
+        this.stars.push(new Stars("*", this.x + 250, this.y + 30));
+        this.stars.push(new Stars("*", this.x + 300, this.y + 380));
+        this.stars.push(new Stars("*", this.x + 337, this.y + 156));
+        this.stars.push(new Stars("*", this.x + 460, this.y + 250));
+        this.stars.push(new Stars("*", this.x + 475, this.y + 50));
     }
 
     update() {
@@ -47,7 +48,7 @@ class Stars {
         /* ctx.strokeStyle = "white";
         ctx.strokeRect(this.x, this.y, 10, 10) */
 
-        ctx.fillText("*", this.x + 1, this.y + 17)
+        ctx.fillText(this.text, this.x + 1, this.y + 17)
         /* ctx.fillText("*", 100, 100)
         ctx.fillText("*", 63, 430)
         ctx.fillText("*", 300, 350)
@@ -62,4 +63,4 @@ class Stars {
     }
 }
 
-stars = new Stars(0, 0)
+stars = new Stars("*", 0, 0)

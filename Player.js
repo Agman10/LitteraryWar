@@ -11,22 +11,25 @@ class Player {
 
     update() {
         for (var i = 0; i < this.bullets.length; i++) {
-            //console.log(this.bullets[i])
-            /* if (this.bulletDirection == "up") this.bullets[i].move(0, -4);
-            else if (this.bulletDirection == "right") this.bullets[i].move(4, 0); */
-            /*if (bullet.direction == "upRight") this.bullets[i].move(4, -4);
-            if (bullet.direction == "right") this.bullets[i].move(4, 0);
-            if (bullet.direction == "downRight") this.bullets[i].move(4, 4);
-            if (bullet.direction == "down") this.bullets[i].move(0, 4);
-            if (bullet.direction == "downLeft") this.bullets[i].move(-4, 4);
-            if (bullet.direction == "left") this.bullets[i].move(-4, 0);
-            if (bullet.direction == "upLeft") this.bullets[i].move(-4, -4); */
-
-
-            if (this.bullets[i].y < 0 - this.height) {
+            if (this.bullets[i].y < 0 - this.bullets[i].height ||
+                this.bullets[i].y > canvas.height + this.bullets[i].height ||
+                this.bullets[i].x < 0 - this.bullets[i].width ||
+                this.bullets[i].x > canvas.width + this.bullets[i].width) {
                 this.bullets.splice(i, 1)
+                console.log(this.bullets.length)
             }
         }
+
+        /* if (player.direction == "right" || player.direction == "left") {
+            bullet.height = 16;
+            bullet.width = 45;
+        } else if (player.direction == "upRight" || player.direction == "downRight" || player.direction == "downLeft") {
+            bullet.height = 45;
+            bullet.width = 30;
+        } else {
+            bullet.height = 45;
+            bullet.width = 16;
+        } */
 
     }
     move(x, y) {
@@ -77,46 +80,79 @@ class Player {
     shoot() {
         let xSpeed = 0;
         let ySpeed = 0;
+        let xPos = this.x;
+        let yPos = this.y;
+        let dir = this.direction;
+        let height = bullet.height;
+        let width = bullet.width;
         switch (this.direction) {
             case "up":
-                ySpeed = -4;
+                xSpeed = 0;
+                ySpeed = -6;
+                xPos = this.x + 17;
+                yPos = this.y - 50;
+                height = 45
+                width = 16
                 break
             case "upRight":
-                xSpeed = 4;
-                ySpeed = -4;
+                xSpeed = 4; //4
+                ySpeed = -4; //-4
+                xPos = this.x + 50;
+                yPos = this.y - 50;
+                height = 45
+                width = 30
                 break
             case "right":
-                xSpeed = 4;
+                xSpeed = 6;
                 ySpeed = 0;
+                xPos = this.x + 50;
+                yPos = this.y + 17;
+                height = 16
+                width = 45
                 break
             case "downRight":
                 xSpeed = 4;
                 ySpeed = 4;
+                xPos = this.x + 50;
+                yPos = this.y + 50;
+                height = 45
+                width = 30
                 break
             case "down":
                 xSpeed = 0;
-                ySpeed = 4;
+                ySpeed = 6;
+                xPos = this.x + 17;
+                yPos = this.y + 50;
+                height = 45
+                width = 16
                 break
             case "downLeft":
-                xSpeed = 0;
-                ySpeed = -4;
+                xSpeed = -4; //-4
+                ySpeed = 4; //4
+                xPos = this.x - 34;
+                yPos = this.y + 50;
+                height = 45
+                width = 30
                 break
             case "left":
-                xSpeed = 0;
-                ySpeed = -4;
+                xSpeed = -6;
+                ySpeed = 0;
+                xPos = this.x - 50;
+                yPos = this.y + 17;
+                height = 16
+                width = 45
                 break
             case "upLeft":
-                xSpeed = 0;
+                xSpeed = -4;
                 ySpeed = -4;
+                xPos = this.x - 34;
+                yPos = this.y - 50;
+                height = 45
+                width = 30
                 break
 
         }
-        //this.bulletDirection = this.direction
-        this.bullets.push(new Bullet(this.x + 17, this.y - 50, xSpeed, ySpeed));
-        /* console.log(bullet.direction)
-        for (var i = 0; i < this.bullets.length; i++) {
-            console.log(this.bullets[i])
-        } */
+        this.bullets.push(new Bullet(xPos, yPos, xSpeed, ySpeed, dir, height, width));
     }
 }
 player = new Player(200, 300);
