@@ -58,26 +58,15 @@ class Game {
 
     render() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        //stars.draw()
         stars.stars.forEach(stars => {
             stars.draw();
             stars.update();
         });
-        //console.log(player.direction)
-        /* console.log("up: " + keysDown[38])
-        console.log("right: " + keysDown[39])
-        console.log("down: " + keysDown[40])
-        console.log("left: " + keysDown[37])
-        console.log(player.direction) */
-        //console.log(keysDown)
-
         player.draw()
-        //bullet.draw();
         player.bullets.forEach(bullet => {
             bullet.draw();
             bullet.update();
-            //bullet.move();
-            //console.log(bullet.direction)
         });
+        wall.draw();
     }
 }

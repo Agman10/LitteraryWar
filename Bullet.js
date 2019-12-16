@@ -11,6 +11,7 @@ class Bullet {
 
     update() {
         this.move(this.xSpeed, this.ySpeed)
+        //this.move(0, 0)
     }
 
     move(x, y) {
@@ -19,11 +20,12 @@ class Bullet {
     }
 
     draw() {
-        //var ctx = canvas.getContext("2d");
         ctx.save()
         ctx.font = "18px Arial";
         ctx.fillStyle = "red";
         ctx.strokeStyle = "white";
+
+        //ctx.fillRect(this.x, this.y, this.width, this.height)
 
         ctx.shadowColor = "red";
         ctx.shadowOffsetX = 0;
@@ -31,47 +33,32 @@ class Bullet {
         ctx.shadowBlur = 10;
 
 
-
-        if (this.dir == "right" || this.dir == "left") {
-            //ctx.fillText("POW", this.x + 0, this.y + 14);
-            /* ctx.textAlign = "center";
-            ctx.fillText("P", this.x + 8, this.y + 14);
-            ctx.fillText("O", this.x + 20, this.y + 14);
-            ctx.fillText("W", this.x + 35, this.y + 14); */
-            ctx.fillText("P", this.x, this.y + 14);
-            ctx.fillText("O", this.x + 13, this.y + 14);
-            ctx.fillText("W", this.x + 28, this.y + 14);
-            //ctx.strokeRect(this.x, this.y, this.width, this.height)
-        } else if (this.dir == "upRight") {
-            //ctx.textAlign = "center";
-            ctx.fillText("P", this.x + 16, this.y + 14);
-            ctx.fillText("O", this.x + 8, this.y + 29);
-            ctx.fillText("W", this.x, this.y + 44);
-            //ctx.strokeRect(this.x, this.y, this.width, this.height)
-        } else if (this.dir == "downRight") {
-            //ctx.textAlign = "center";
-            ctx.fillText("P", this.x, this.y + 14);
-            ctx.fillText("O", this.x + 6, this.y + 28);
-            ctx.fillText("W", this.x + 14, this.y + 44);
-            //ctx.strokeRect(this.x, this.y, this.width, this.height)
-        } else if (this.dir == "downLeft") {
-            //ctx.textAlign = "center";
-            ctx.fillText("P", this.x + 16, this.y + 14);
-            ctx.fillText("O", this.x + 8, this.y + 29);
-            ctx.fillText("W", this.x, this.y + 44);
-            //ctx.strokeRect(this.x, this.y, this.width, this.height)
-        } else if (this.dir == "upLeft") {
-            //ctx.textAlign = "center";
-            ctx.fillText("P", this.x, this.y + 14);
-            ctx.fillText("O", this.x + 6, this.y + 28);
-            ctx.fillText("W", this.x + 14, this.y + 44);
-            //ctx.strokeRect(this.x, this.y, this.width, this.height)
-        } else {
+        if (this.dir == "up" || this.dir == "down") {
             ctx.textAlign = "center";
             ctx.fillText("P", this.x + 8, this.y + 14);
             ctx.fillText("O", this.x + 8, this.y + 29);
             ctx.fillText("W", this.x + 8, this.y + 44);
+        } if (this.dir == "right" || this.dir == "left") {
+            ctx.fillText("P", this.x, this.y + 14);
+            ctx.fillText("O", this.x + 13, this.y + 14);
+            ctx.fillText("W", this.x + 28, this.y + 14);
             //ctx.strokeRect(this.x, this.y, this.width, this.height)
+        } if (this.dir == "upRight") {
+            ctx.fillText("P", this.x + 16, this.y + 14);
+            ctx.fillText("O", this.x + 8, this.y + 29);
+            ctx.fillText("W", this.x, this.y + 44);
+        } if (this.dir == "downRight") {
+            ctx.fillText("P", this.x, this.y + 14);
+            ctx.fillText("O", this.x + 6, this.y + 28);
+            ctx.fillText("W", this.x + 14, this.y + 44);
+        } if (this.dir == "downLeft") {
+            ctx.fillText("P", this.x + 16, this.y + 14);
+            ctx.fillText("O", this.x + 8, this.y + 29);
+            ctx.fillText("W", this.x, this.y + 44);
+        } if (this.dir == "upLeft") {
+            ctx.fillText("P", this.x, this.y + 14);
+            ctx.fillText("O", this.x + 6, this.y + 28);
+            ctx.fillText("W", this.x + 14, this.y + 44);
         }
         ctx.restore();
     }

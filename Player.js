@@ -11,6 +11,12 @@ class Player {
 
     update() {
         for (var i = 0; i < this.bullets.length; i++) {
+            if (this.x < this.bullets[i].x + this.bullets[i].width &&
+                this.x + this.width > this.bullets[i].x &&
+                this.y < this.bullets[i].y + this.bullets[i].height &&
+                this.y + this.height > this.bullets[i].y) {
+                console.log("collision")
+            }
             if (this.bullets[i].y < 0 - this.bullets[i].height ||
                 this.bullets[i].y > canvas.height + this.bullets[i].height ||
                 this.bullets[i].x < 0 - this.bullets[i].width ||
@@ -18,18 +24,8 @@ class Player {
                 this.bullets.splice(i, 1)
                 console.log(this.bullets.length)
             }
-        }
 
-        /* if (player.direction == "right" || player.direction == "left") {
-            bullet.height = 16;
-            bullet.width = 45;
-        } else if (player.direction == "upRight" || player.direction == "downRight" || player.direction == "downLeft") {
-            bullet.height = 45;
-            bullet.width = 30;
-        } else {
-            bullet.height = 45;
-            bullet.width = 16;
-        } */
+        }
 
     }
     move(x, y) {
@@ -38,11 +34,12 @@ class Player {
         //console.log(this.x + " " + this.y)
     }
     draw() {
-        //var ctx = canvas.getContext("2d");
         ctx.save();
         ctx.font = "30px Arial";
         ctx.fillStyle = "white";
         ctx.strokeStyle = "white";
+        //ctx.fillRect(this.x, this.y, this.width, this.height)
+
         //ctx.textAlign = "center";
         //ctx.fillText("S", this.x + 50, this.y - 25);
         //ctx.strokeRect(this.x - 10, this.y - 47, 20, 25)
@@ -58,7 +55,7 @@ class Player {
         ctx.closePath();
         ctx.stroke(); */
 
-        ctx.strokeRect(this.x, this.y, this.width, this.height);
+        //ctx.strokeRect(this.x, this.y, this.width, this.height);
         ctx.fillText("S", this.x + 15, this.y + 25);
         ctx.fillText("HIP", this.x, this.y + 50);
         ctx.restore();
@@ -95,9 +92,9 @@ class Player {
                 width = 16
                 break
             case "upRight":
-                xSpeed = 4; //4
-                ySpeed = -4; //-4
-                xPos = this.x + 50;
+                xSpeed = 4;
+                ySpeed = -4;
+                xPos = this.x + 55;
                 yPos = this.y - 50;
                 height = 45
                 width = 30
@@ -105,7 +102,7 @@ class Player {
             case "right":
                 xSpeed = 6;
                 ySpeed = 0;
-                xPos = this.x + 50;
+                xPos = this.x + 55;
                 yPos = this.y + 17;
                 height = 16
                 width = 45
@@ -113,8 +110,8 @@ class Player {
             case "downRight":
                 xSpeed = 4;
                 ySpeed = 4;
-                xPos = this.x + 50;
-                yPos = this.y + 50;
+                xPos = this.x + 55;
+                yPos = this.y + 55;
                 height = 45
                 width = 30
                 break
@@ -122,15 +119,15 @@ class Player {
                 xSpeed = 0;
                 ySpeed = 6;
                 xPos = this.x + 17;
-                yPos = this.y + 50;
+                yPos = this.y + 55;
                 height = 45
                 width = 16
                 break
             case "downLeft":
-                xSpeed = -4; //-4
-                ySpeed = 4; //4
+                xSpeed = -4;
+                ySpeed = 4;
                 xPos = this.x - 34;
-                yPos = this.y + 50;
+                yPos = this.y + 55;
                 height = 45
                 width = 30
                 break
