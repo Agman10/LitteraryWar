@@ -68,5 +68,6 @@ class Game {
             bullet.update();
         });
         wall.draw();
+        //console.log(Math.floor(Math.random() * 4))
     }
 }

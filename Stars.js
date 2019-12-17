@@ -6,7 +6,8 @@ class Stars {
         this.height = 10;
         this.stars = [];
         this.text = string;
-        this.random = (Math.floor(Math.random() * 15) + 5) / 10
+        this.colors = ["#ffffff", "#ffffc8", "#c8c8ff", "#c8ffc8", "#ffc8c8"];
+        this.random = (Math.floor(Math.random() * 15) + 5) / 10;
     }
 
     push() {
@@ -30,6 +31,7 @@ class Stars {
             }
         }
         this.move(0, this.random)
+        //Math.floor(Math.random() * this.colors.length)
     }
 
     move(x, y) {
@@ -40,8 +42,12 @@ class Stars {
     draw() {
         ctx.save();
         ctx.font = "20px Arial";
-        ctx.fillStyle = "white";
-        ctx.shadowColor = "white";
+        //#ffffc8
+        //#c8ffc8
+        //#ffc8c8
+        //#c8c8ff
+        ctx.fillStyle = stars.colors[0];
+        ctx.shadowColor = stars.colors[0];
         ctx.shadowOffsetX = 0;
         ctx.shadowOffsetY = 0;
         ctx.shadowBlur = 15;
