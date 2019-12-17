@@ -6,29 +6,30 @@ class Game {
             player.shoot();
         });
         setInterval(() => this.loop(), 1000 / 60);
-        setInterval(() => this.logic(), 1000 / 120);
+        setInterval(() => this.logic(), 1000 / 60);
     }
 
     logic() {
-        if (keysDown[38] && player.y != 0) {
+        let speed = 3;
+        if (keysDown[38] && player.y > 0) {
             //up
             player.direction = "up"
-            player.move(0, -1)
+            player.move(0, -speed)
         }
-        if (keysDown[39] && player.x != 500 - player.width) {
+        if (keysDown[39] && player.x < 500 - player.width) {
             //right
             player.direction = "right"
-            player.move(1, 0)
+            player.move(speed, 0)
         }
-        if (keysDown[40] && player.y != 500 - player.height) {
+        if (keysDown[40] && player.y < 500 - player.height) {
             //down
             player.direction = "down"
-            player.move(0, 1)
+            player.move(0, speed)
         }
-        if (keysDown[37] && player.x != 0) {
+        if (keysDown[37] && player.x > 0) {
             //left
             player.direction = "left"
-            player.move(-1, 0)
+            player.move(-speed, 0)
         }
 
         if (keysDown[38] == true && keysDown[39] == true) {

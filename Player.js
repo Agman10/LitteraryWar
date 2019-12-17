@@ -26,7 +26,7 @@ class Player {
             if (this.bullets[i].x < 0 - this.bullets[i].width ||
                 this.bullets[i].x > canvas.width + this.bullets[i].width ||
                 this.bullets[i].y < 0 - this.bullets[i].height ||
-                this.bullets[i].y > canvas.height + this.bullets[i].hheight) {
+                this.bullets[i].y > canvas.height + this.bullets[i].height) {
                 this.bullets.splice(i, 1)
                 console.log(this.bullets.length)
             }
