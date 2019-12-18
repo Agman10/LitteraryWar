@@ -7,6 +7,7 @@ class Player {
         this.bullets = []
         this.direction = "up";
         this.bulletDirection = "up";
+        this.collision = "none";
     }
 
     update() {
@@ -28,16 +29,50 @@ class Player {
                 this.bullets[i].y < 0 - this.bullets[i].height ||
                 this.bullets[i].y > canvas.height + this.bullets[i].height) {
                 this.bullets.splice(i, 1)
-                console.log(this.bullets.length)
+                //console.log(this.bullets.length)
             }
 
         }
         if (this.x < wall.x + wall.width &&
             this.x + this.width > wall.x &&
-            this.y < wall.y + wall.height &&
-            this.y + this.height > wall.y) {
-            console.log("collision")
+            this.y + 3 > wall.y + wall.height &&
+            this.y < wall.y + wall.height) {
+            this.collision = "up";
         }
+        else if (this.x < wall.x - this.width + 10 &&
+            this.x + this.width > wall.x &&
+            this.y + this.height > wall.y &&
+            this.y < wall.y + wall.height) {
+            this.collision = "right";
+        }
+        else if (this.x < wall.x + wall.width &&
+            this.x + this.width > wall.x &&
+            this.y + this.height > wall.y &&
+            this.y < wall.y - this.height + 10) {
+            this.collision = "down";
+        }
+        else if (this.x < wall.x + wall.width &&
+            this.x + 3 > wall.x + wall.width &&
+            this.y + this.height > wall.y &&
+            this.y < wall.y + wall.height) {
+            this.collision = "left";
+        }
+
+        else this.collision = "none"
+
+
+
+
+        /* if (this.x < wall.x + wall.width &&
+            this.x + this.width > wall.x &&
+            this.y < wall.y + wall.height &&
+            this.y + this.height > wall.y &&
+            this.y < wall.y + wall.height) {
+            this.collision = "up";
+
+
+        }
+        else this.collision = "none" */
     }
     move(x, y) {
         this.x += x;
@@ -148,22 +183,22 @@ class Player {
         switch (this.direction) {
             case "up":
                 xSpeed = 0;
-                ySpeed = -6;
+                ySpeed = -8;
                 xPos = this.x + 17;
                 yPos = this.y - 50;
                 height = 45
                 width = 16
                 break
             case "upRight":
-                xSpeed = 4;
-                ySpeed = -4;
+                xSpeed = 6;
+                ySpeed = -6;
                 xPos = this.x + 55;
                 yPos = this.y - 50;
                 height = 45
                 width = 30
                 break
             case "right":
-                xSpeed = 6;
+                xSpeed = 8;
                 ySpeed = 0;
                 xPos = this.x + 55;
                 yPos = this.y + 17;
@@ -171,8 +206,8 @@ class Player {
                 width = 45
                 break
             case "downRight":
-                xSpeed = 4;
-                ySpeed = 4;
+                xSpeed = 6;
+                ySpeed = 6;
                 xPos = this.x + 55;
                 yPos = this.y + 55;
                 height = 45
@@ -180,22 +215,22 @@ class Player {
                 break
             case "down":
                 xSpeed = 0;
-                ySpeed = 6;
+                ySpeed = 8;
                 xPos = this.x + 17;
                 yPos = this.y + 55;
                 height = 45
                 width = 16
                 break
             case "downLeft":
-                xSpeed = -4;
-                ySpeed = 4;
+                xSpeed = -6;
+                ySpeed = 6;
                 xPos = this.x - 34;
                 yPos = this.y + 55;
                 height = 45
                 width = 30
                 break
             case "left":
-                xSpeed = -6;
+                xSpeed = -8;
                 ySpeed = 0;
                 xPos = this.x - 50;
                 yPos = this.y + 17;
@@ -203,8 +238,8 @@ class Player {
                 width = 45
                 break
             case "upLeft":
-                xSpeed = -4;
-                ySpeed = -4;
+                xSpeed = -6;
+                ySpeed = -6;
                 xPos = this.x - 34;
                 yPos = this.y - 50;
                 height = 45

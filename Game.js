@@ -11,25 +11,20 @@ class Game {
 
     logic() {
         let speed = 3;
-        if (keysDown[38] && player.y > 0) {
-            //up
+
+
+
+        if (keysDown[38]) {
             player.direction = "up"
-            player.move(0, -speed)
         }
-        if (keysDown[39] && player.x < 500 - player.width) {
-            //right
+        if (keysDown[39]) {
             player.direction = "right"
-            player.move(speed, 0)
         }
-        if (keysDown[40] && player.y < 500 - player.height) {
-            //down
+        if (keysDown[40]) {
             player.direction = "down"
-            player.move(0, speed)
         }
-        if (keysDown[37] && player.x > 0) {
-            //left
+        if (keysDown[37]) {
             player.direction = "left"
-            player.move(-speed, 0)
         }
 
         if (keysDown[38] == true && keysDown[39] == true) {
@@ -48,6 +43,28 @@ class Game {
             //left + up
             player.direction = "upLeft"
         }
+
+        if (keysDown[38] && player.y > 0 && player.collision != "up") {
+            //up
+            player.move(0, -speed)
+        }
+        if (keysDown[39] && player.x < 500 - player.width && player.collision != "right") {
+            //right
+            player.move(speed, 0)
+        }
+        if (keysDown[40] && player.y < 500 - player.height && player.collision != "down") {
+            //down
+            player.move(0, speed)
+        }
+        if (keysDown[37] && player.x > 0 && player.collision != "left") {
+            //left
+            player.move(-speed, 0)
+        }
+
+        /* if (player.x < wall.width - player.width &&
+            player.y < wall.height - player.height) {
+            console.log("test")
+        } */
 
         stars.update();
         player.update();
@@ -69,6 +86,7 @@ class Game {
             bullet.update();
         });
         wall.draw();
+        console.log(player.collision)
         //console.log(Math.floor(Math.random() * 4))
     }
 }
