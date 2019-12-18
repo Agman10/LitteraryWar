@@ -35,6 +35,34 @@ class Player {
         }
         if (this.x < wall.x + wall.width &&
             this.x + this.width > wall.x &&
+            this.y + 10 > wall.y + wall.height &&
+            this.y < wall.y + wall.height) {
+            this.collision = "up";
+        }
+        else if (this.x < wall.x - this.width + 10 &&
+            this.x + this.width > wall.x &&
+            this.y + this.height > wall.y &&
+            this.y < wall.y + wall.height) {
+            this.collision = "right";
+        }
+        else if (this.x < wall.x + wall.width &&
+            this.x + this.width > wall.x &&
+            this.y + this.height > wall.y &&
+            this.y < wall.y - this.height + 10) {
+            this.collision = "down";
+        }
+        else if (this.x < wall.x + wall.width &&
+            this.x + 10 > wall.x + wall.width &&
+            this.y + this.height > wall.y &&
+            this.y < wall.y + wall.height) {
+            this.collision = "left";
+        }
+
+        else this.collision = "none"
+
+
+        /* if (this.x < wall.x + wall.width &&
+            this.x + this.width > wall.x &&
             this.y + 3 > wall.y + wall.height &&
             this.y < wall.y + wall.height) {
             this.collision = "up";
@@ -56,12 +84,7 @@ class Player {
             this.y + this.height > wall.y &&
             this.y < wall.y + wall.height) {
             this.collision = "left";
-        }
-
-        else this.collision = "none"
-
-
-
+        } */
 
         /* if (this.x < wall.x + wall.width &&
             this.x + this.width > wall.x &&

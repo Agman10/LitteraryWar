@@ -67,6 +67,7 @@ class Game {
         } */
 
         stars.update();
+        enemy.update();
         player.update();
     }
 
@@ -85,8 +86,10 @@ class Game {
             bullet.draw();
             bullet.update();
         });
+        enemy.draw();
         wall.draw();
-        console.log(player.collision)
+        //console.log(player.collision)
+        //console.log((Math.floor(Math.random() * 50)) * 10)
         //console.log(Math.floor(Math.random() * 4))
     }
 }

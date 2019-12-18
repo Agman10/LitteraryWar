@@ -19,4 +19,5 @@ document.addEventListener("keyup", event => {
 window.onload = () => {
     game.start();
     stars.push();
+    console.log(wall.x + " " + wall.y)
 }
