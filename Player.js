@@ -24,6 +24,15 @@ class Player {
                 this.bullets[i].y + this.bullets[i].height > wall.y) {
                 this.bullets.splice(i, 1)
             }
+            for (var j = 0; j < enemy.enemies.length; j++) {
+                if (enemy.enemies[j].x < this.bullets[i].x + this.bullets[i].width &&
+                    enemy.enemies[j].x + enemy.enemies[j].width > this.bullets[i].x &&
+                    enemy.enemies[j].y < this.bullets[i].y + this.bullets[i].height &&
+                    enemy.enemies[j].y + enemy.enemies[j].height > this.bullets[i].y) {
+                    this.bullets.splice(i, 1)
+                    enemy.enemies.splice(i, 1)
+                }
+            }
             if (this.bullets[i].x < 0 - this.bullets[i].width ||
                 this.bullets[i].x > canvas.width + this.bullets[i].width ||
                 this.bullets[i].y < 0 - this.bullets[i].height ||
