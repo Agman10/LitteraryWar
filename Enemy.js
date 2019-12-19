@@ -4,7 +4,7 @@ class Enemy {
         this.y = y;
         this.height = 50;
         this.width = 50;
-        this.collision = "none"
+        this.wallCollision = "none";
     }
 
     update() {
@@ -14,53 +14,44 @@ class Enemy {
             this.x + this.width > wall.x &&
             this.y + 10 > wall.y + wall.height &&
             this.y < wall.y + wall.height) {
-            this.collision = "up";
+            this.wallCollision = "up";
         }
         else if (this.x < wall.x - this.width + 10 &&
             this.x + this.width > wall.x &&
             this.y + this.height > wall.y &&
             this.y < wall.y + wall.height) {
-            this.collision = "right";
+            this.wallCollision = "right";
         }
         else if (this.x < wall.x + wall.width &&
             this.x + this.width > wall.x &&
             this.y + this.height > wall.y &&
             this.y < wall.y - this.height + 10) {
-            this.collision = "down";
+            this.wallCollision = "down";
         }
         else if (this.x < wall.x + wall.width &&
             this.x + 10 > wall.x + wall.width &&
             this.y + this.height > wall.y &&
             this.y < wall.y + wall.height) {
-            this.collision = "left";
+            this.wallCollision = "left";
         }
 
-        else this.collision = "none"
+        else this.wallCollision = "none"
 
-        if (player.x > this.x) {
+        if (player.x > this.x && this.wallCollision != "right") {
             xSpeed = 1;
-        } else if (player.x < this.x) {
+        } else if (player.x < this.x && this.wallCollision != "left") {
             xSpeed = -1;
         }
 
-        if (player.y > this.y) {
+        if (player.y > this.y && this.wallCollision != "down") {
             ySpeed = 1;
-        } else if (player.y < this.y) {
+        } else if (player.y < this.y && this.wallCollision != "up") {
             ySpeed = -1;
         }
 
-        if (this.collision == "up" || this.collision == "down") {
-            ySpeed = 0;
-            //xSpeed = 1;
-        }
-
-        if (this.collision == "left" || this.collision == "right") {
-            xSpeed = 0;
-            //ySpeed = 1;
-        }
         this.move(xSpeed, ySpeed)
 
-        console.log(this.collision)
+        console.log(this.wallCollision)
     }
 
     move(x, y) {

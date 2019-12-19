@@ -12,8 +12,6 @@ class Game {
     logic() {
         let speed = 3;
 
-
-
         if (keysDown[38]) {
             player.direction = "up"
         }

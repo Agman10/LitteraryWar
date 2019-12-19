@@ -13,7 +13,7 @@ class Wall {
         ctx.strokeStyle = "white";
         ctx.fillStyle = "white";
         //ctx.fillRect(this.x, this.y, this.width, this.height)
-        ctx.strokeRect(this.x, this.y, this.width, this.height)
+        //ctx.strokeRect(this.x, this.y, this.width, this.height)
         ctx.fillText("W", this.x, this.y + 25);
         ctx.fillText("A", this.x + 4, this.y + 50);
         ctx.fillText("L", this.x + 6, this.y + 75);
