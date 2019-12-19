@@ -26,7 +26,7 @@ class Bullet {
         ctx.strokeStyle = "white";
 
         //ctx.fillRect(this.x, this.y, this.width, this.height)
-
+        //ctx.strokeRect(this.x, this.y, this.width, this.height)
         ctx.shadowColor = "red";
         ctx.shadowOffsetX = 0;
         ctx.shadowOffsetY = 0;
@@ -35,30 +35,30 @@ class Bullet {
 
         if (this.dir == "up" || this.dir == "down") {
             ctx.textAlign = "center";
-            ctx.fillText("P", this.x + 8, this.y + 14);
-            ctx.fillText("O", this.x + 8, this.y + 29);
-            ctx.fillText("W", this.x + 8, this.y + 44);
+            ctx.fillText("Z", this.x + 8, this.y + 14);
+            ctx.fillText("A", this.x + 8, this.y + 29);
+            ctx.fillText("P", this.x + 8, this.y + 44);
         } if (this.dir == "right" || this.dir == "left") {
-            ctx.fillText("P", this.x, this.y + 14);
-            ctx.fillText("O", this.x + 13, this.y + 14);
-            ctx.fillText("W", this.x + 28, this.y + 14);
+            ctx.fillText("Z", this.x + 2, this.y + 15);
+            ctx.fillText("A", this.x + 17, this.y + 15);
+            ctx.fillText("P", this.x + 32, this.y + 15);
             //ctx.strokeRect(this.x, this.y, this.width, this.height)
         } if (this.dir == "upRight") {
+            ctx.fillText("Z", this.x, this.y + 44);
+            ctx.fillText("A", this.x + 8, this.y + 29);
             ctx.fillText("P", this.x + 16, this.y + 14);
-            ctx.fillText("O", this.x + 8, this.y + 29);
-            ctx.fillText("W", this.x, this.y + 44);
         } if (this.dir == "downRight") {
-            ctx.fillText("P", this.x, this.y + 14);
-            ctx.fillText("O", this.x + 6, this.y + 28);
-            ctx.fillText("W", this.x + 14, this.y + 44);
+            ctx.fillText("Z", this.x, this.y + 14);
+            ctx.fillText("A", this.x + 8, this.y + 28);
+            ctx.fillText("P", this.x + 16, this.y + 44);
         } if (this.dir == "downLeft") {
+            ctx.fillText("Z", this.x, this.y + 44);
+            ctx.fillText("A", this.x + 8, this.y + 29);
             ctx.fillText("P", this.x + 16, this.y + 14);
-            ctx.fillText("O", this.x + 8, this.y + 29);
-            ctx.fillText("W", this.x, this.y + 44);
         } if (this.dir == "upLeft") {
-            ctx.fillText("P", this.x, this.y + 14);
-            ctx.fillText("O", this.x + 6, this.y + 28);
-            ctx.fillText("W", this.x + 14, this.y + 44);
+            ctx.fillText("Z", this.x, this.y + 14);
+            ctx.fillText("A", this.x + 8, this.y + 28);
+            ctx.fillText("P", this.x + 16, this.y + 44);
         }
         ctx.restore();
     }

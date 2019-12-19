@@ -159,6 +159,8 @@ class Player {
 
     }
     shoot() {
+        let diagonal = 6;
+        let straight = 8;
         let xSpeed = 0;
         let ySpeed = 0;
         let xPos = this.x;
@@ -169,22 +171,22 @@ class Player {
         switch (this.direction) {
             case "up":
                 xSpeed = 0;
-                ySpeed = -8;
+                ySpeed = -straight;
                 xPos = this.x + 17;
                 yPos = this.y - 50;
                 height = 45
                 width = 16
                 break
             case "upRight":
-                xSpeed = 6;
-                ySpeed = -6;
+                xSpeed = diagonal;
+                ySpeed = -diagonal;
                 xPos = this.x + 55;
                 yPos = this.y - 50;
                 height = 45
                 width = 30
                 break
             case "right":
-                xSpeed = 8;
+                xSpeed = straight;
                 ySpeed = 0;
                 xPos = this.x + 55;
                 yPos = this.y + 17;
@@ -192,8 +194,8 @@ class Player {
                 width = 45
                 break
             case "downRight":
-                xSpeed = 6;
-                ySpeed = 6;
+                xSpeed = diagonal;
+                ySpeed = diagonal;
                 xPos = this.x + 55;
                 yPos = this.y + 55;
                 height = 45
@@ -201,22 +203,22 @@ class Player {
                 break
             case "down":
                 xSpeed = 0;
-                ySpeed = 8;
+                ySpeed = straight;
                 xPos = this.x + 17;
                 yPos = this.y + 55;
                 height = 45
                 width = 16
                 break
             case "downLeft":
-                xSpeed = -6;
-                ySpeed = 6;
+                xSpeed = -diagonal;
+                ySpeed = diagonal;
                 xPos = this.x - 34;
                 yPos = this.y + 55;
                 height = 45
                 width = 30
                 break
             case "left":
-                xSpeed = -8;
+                xSpeed = -straight;
                 ySpeed = 0;
                 xPos = this.x - 50;
                 yPos = this.y + 17;
@@ -224,8 +226,8 @@ class Player {
                 width = 45
                 break
             case "upLeft":
-                xSpeed = -6;
-                ySpeed = -6;
+                xSpeed = -diagonal;
+                ySpeed = -diagonal;
                 xPos = this.x - 34;
                 yPos = this.y - 50;
                 height = 45

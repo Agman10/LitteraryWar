@@ -22,5 +22,6 @@ class Wall {
     }
 
 }
-
-wall = new Wall((Math.floor(Math.random() * 47)) * 10, (Math.floor(Math.random() * 40)) * 10, 100, 30)
+let randomPosX = (Math.floor(Math.random() * 47)) * 10
+let randomPosY = (Math.floor(Math.random() * 40)) * 10
+wall = new Wall(randomPosX, randomPosY, 100, 30)

@@ -1,62 +1,73 @@
 class Enemy {
-    constructor(x, y) {
+    constructor(x, y, xSpeed, ySpeed, wallCollision) {
         this.x = x;
         this.y = y;
         this.height = 50;
         this.width = 50;
-        this.wallCollision = "none";
+        this.xSpeed = xSpeed;
+        this.ySpeed = ySpeed;
+        this.enemies = [];
+        this.wallCollision = wallCollision;
     }
 
     update() {
-        let xSpeed = 0;
-        let ySpeed = 0;
-        if (this.x < wall.x + wall.width &&
-            this.x + this.width > wall.x &&
-            this.y + 10 > wall.y + wall.height &&
-            this.y < wall.y + wall.height) {
-            this.wallCollision = "up";
-        }
-        else if (this.x < wall.x - this.width + 10 &&
-            this.x + this.width > wall.x &&
-            this.y + this.height > wall.y &&
-            this.y < wall.y + wall.height) {
-            this.wallCollision = "right";
-        }
-        else if (this.x < wall.x + wall.width &&
-            this.x + this.width > wall.x &&
-            this.y + this.height > wall.y &&
-            this.y < wall.y - this.height + 10) {
-            this.wallCollision = "down";
-        }
-        else if (this.x < wall.x + wall.width &&
-            this.x + 10 > wall.x + wall.width &&
-            this.y + this.height > wall.y &&
-            this.y < wall.y + wall.height) {
-            this.wallCollision = "left";
+        for (var i = 0; i < this.enemies.length; i++) {
+            if (this.enemies[i].x < wall.x + wall.width &&
+                this.enemies[i].x + this.enemies[i].width > wall.x &&
+                this.enemies[i].y + 10 > wall.y + wall.height &&
+                this.enemies[i].y < wall.y + wall.height) {
+                this.enemies[i].wallCollision = "up";
+            }
+            else if (this.enemies[i].x < wall.x - this.enemies[i].width + 10 &&
+                this.enemies[i].x + this.enemies[i].width > wall.x &&
+                this.enemies[i].y + this.enemies[i].height > wall.y &&
+                this.enemies[i].y < wall.y + wall.height) {
+                this.enemies[i].wallCollision = "right";
+            }
+            else if (this.enemies[i].x < wall.x + wall.width &&
+                this.enemies[i].x + this.enemies[i].width > wall.x &&
+                this.enemies[i].y + this.enemies[i].height > wall.y &&
+                this.enemies[i].y < wall.y - this.enemies[i].height + 10) {
+                this.enemies[i].wallCollision = "down";
+            }
+            else if (this.enemies[i].x < wall.x + wall.width &&
+                this.enemies[i].x + 10 > wall.x + wall.width &&
+                this.enemies[i].y + this.enemies[i].height > wall.y &&
+                this.enemies[i].y < wall.y + wall.height) {
+                this.enemies[i].wallCollision = "left";
+            }
+
+            else this.enemies[i].wallCollision = "none"
+
+            if (player.x > this.enemies[i].x && this.enemies[i].wallCollision != "right") {
+                this.enemies[i].xSpeed = 1;
+            } else if (player.x < this.enemies[i].x && this.enemies[i].wallCollision != "left") {
+                this.enemies[i].xSpeed = -1;
+            } else this.enemies[i].xSpeed = 0;
+
+            if (player.y > this.enemies[i].y && this.enemies[i].wallCollision != "down") {
+                this.enemies[i].ySpeed = 1;
+            } else if (player.y < this.enemies[i].y && this.enemies[i].wallCollision != "up") {
+                this.enemies[i].ySpeed = -1;
+            } else this.enemies[i].ySpeed = 0;
+
+            //console.log(this.enemies[i].x, this.enemies[i].y)
+            //console.log(this.enemies[i].wallCollision)
         }
 
-        else this.wallCollision = "none"
+        this.move(this.xSpeed, this.ySpeed)
 
-        if (player.x > this.x && this.wallCollision != "right") {
-            xSpeed = 1;
-        } else if (player.x < this.x && this.wallCollision != "left") {
-            xSpeed = -1;
-        }
-
-        if (player.y > this.y && this.wallCollision != "down") {
-            ySpeed = 1;
-        } else if (player.y < this.y && this.wallCollision != "up") {
-            ySpeed = -1;
-        }
-
-        this.move(xSpeed, ySpeed)
-
-        console.log(this.wallCollision)
     }
 
     move(x, y) {
         this.x += x;
         this.y += y;
+    }
+
+    push() {
+        let randomPosX = (Math.floor(Math.random() * 47)) * 10;
+        let randomPosY = (Math.floor(Math.random() * 47)) * 10;
+        this.enemies.push(new Enemy(randomPosX, randomPosY, 0, 0, "none"));
     }
 
     draw() {

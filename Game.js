@@ -85,6 +85,10 @@ class Game {
             bullet.update();
         });
         enemy.draw();
+        enemy.enemies.forEach(enemy => {
+            enemy.draw();
+            enemy.update();
+        });
         wall.draw();
         //console.log(player.collision)
         //console.log((Math.floor(Math.random() * 50)) * 10)
