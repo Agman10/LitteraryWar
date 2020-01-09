@@ -31,6 +31,7 @@ class Player {
                     enemy.enemies[j].y + enemy.enemies[j].height > this.bullets[i].y) {
                     this.bullets.splice(i, 1)
                     enemy.enemies.splice(i, 1)
+                    enemy.push()
                 }
             }
             if (this.bullets[i].x < 0 - this.bullets[i].width ||

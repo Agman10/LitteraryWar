@@ -90,6 +90,7 @@ class Game {
             enemy.update();
         });
         wall.draw();
+        //console.log(Math.floor(Math.random() * 4))
         //enemy.push();
         //console.log(player.collision)
         //console.log((Math.floor(Math.random() * 50)) * 10)

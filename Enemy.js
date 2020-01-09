@@ -8,6 +8,7 @@ class Enemy {
         this.ySpeed = ySpeed;
         this.enemies = [];
         this.wallCollision = wallCollision;
+        this.randomOffscreenPos;
     }
 
     update() {
@@ -65,9 +66,25 @@ class Enemy {
     }
 
     push() {
-        let randomPosX = (Math.floor(Math.random() * 47)) * 10;
-        let randomPosY = (Math.floor(Math.random() * 47)) * 10;
-        this.enemies.push(new Enemy(randomPosX, randomPosY, 0, 0, "none"));
+        this.randomOffscreenPos = Math.floor(Math.random() * 4)
+        let randomPosX = (Math.floor(Math.random() * 50)) * 10;
+        let randomPosY = (Math.floor(Math.random() * 50)) * 10;
+        if (this.randomOffscreenPos == 0) {
+            this.enemies.push(new Enemy(-50, randomPosY, 0, 0, "none"));
+            console.log(this.randomOffscreenPos)
+        }
+        if (this.randomOffscreenPos == 1) {
+            this.enemies.push(new Enemy(500, randomPosY, 0, 0, "none"));
+            console.log(this.randomOffscreenPos)
+        }
+        if (this.randomOffscreenPos == 2) {
+            this.enemies.push(new Enemy(randomPosX, -50, 0, 0, "none"));
+            console.log(this.randomOffscreenPos)
+        }
+        if (this.randomOffscreenPos == 3) {
+            this.enemies.push(new Enemy(randomPosX, 500, 0, 0, "none"));
+            console.log(this.randomOffscreenPos)
+        }
     }
 
     draw() {
