@@ -30,7 +30,7 @@ class Player {
                     enemy.enemies[j].y < this.bullets[i].y + this.bullets[i].height &&
                     enemy.enemies[j].y + enemy.enemies[j].height > this.bullets[i].y) {
                     this.bullets.splice(i, 1)
-                    enemy.enemies.splice(i, 1)
+                    enemy.enemies.splice(j, 1)
                     enemy.push()
                 }
             }
@@ -86,44 +86,6 @@ class Player {
         ctx.fillText("H", this.x + 25, this.y + 25);
         ctx.fillText("I", this.x + 5, this.y + 50);
         ctx.fillText("P", this.x + 25, this.y + 50);
-
-        /* ctx.save();
-        if (this.direction == "up") {
-            ctx.fillText("S", this.x + 15, this.y + 25);
-            ctx.fillText("HIP", this.x, this.y + 50);
-        }
-        if (this.direction == "upRight") {
-            ctx.fillText("S", this.x + 30, this.y + 25);
-            ctx.fillText("HIP", this.x, this.y + 50);
-        }
-        if (this.direction == "right") {
-            ctx.fillText("S", this.x + 1, this.y + 25);
-            ctx.fillText("H", this.x, this.y + 50);
-            ctx.fillText("IP", this.x + 21, this.y + 35);
-        }
-        if (this.direction == "downRight") {
-            ctx.fillText("SHI", this.x, this.y + 25);
-            ctx.fillText("P", this.x + 30, this.y + 50);
-        }
-        if (this.direction == "down") {
-            ctx.fillText("SHI", this.x, this.y + 25);
-            ctx.fillText("P", this.x + 15, this.y + 50);
-        }
-        if (this.direction == "downLeft") {
-            ctx.fillText("SHI", this.x, this.y + 25);
-            ctx.fillText("P", this.x, this.y + 50);
-        }
-        if (this.direction == "left") {
-            ctx.fillText("S", this.x - 2, this.y + 35);
-            ctx.fillText("H", this.x + 13, this.y + 35);
-            ctx.fillText("I", this.x + 37, this.y + 25);
-            ctx.fillText("P", this.x + 32, this.y + 50);
-        }
-        if (this.direction == "upLeft") {
-            ctx.fillText("S", this.x, this.y + 25);
-            ctx.fillText("HIP", this.x, this.y + 50);
-        }
-        ctx.restore(); */
 
         ctx.restore();
         ctx.save();

@@ -63,4 +63,4 @@ class Bullet {
         ctx.restore();
     }
 }
-bullet = new Bullet(player.x, player.y);
+bullet = new Bullet(this.x, this.y);

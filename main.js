@@ -21,4 +21,5 @@ window.onload = () => {
     stars.push();
     //console.log(wall.x + " " + wall.y)
     enemy.push();
+    shootingEnemy.push();
 }
