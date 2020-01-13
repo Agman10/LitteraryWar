@@ -11,44 +11,7 @@ class Player {
     }
 
     update() {
-        for (let i in game.world) {
-            let bObj = game.world[i]
-            if (bObj.type == "bullet") {
-                if (this.x < bObj.x + bObj.width &&
-                    this.x + this.width > bObj.x &&
-                    this.y < bObj.y + bObj.height &&
-                    this.y + this.height > bObj.y) {
-                    console.log("collision")
-                }
-                if (bObj.x < wall.x + wall.width &&
-                    bObj.x + bObj.width > wall.x &&
-                    bObj.y < wall.y + wall.height &&
-                    bObj.y + bObj.height > wall.y) {
-                    game.world.splice(i, 1)
-                }
-                for (let j in game.world) {
-                    let eObj = game.world[j]
-                    if (eObj.type == "enemy")
-                        if (eObj.x < bObj.x + bObj.width &&
-                            eObj.x + eObj.width > bObj.x &&
-                            eObj.y < bObj.y + bObj.height &&
-                            eObj.y + eObj.height > bObj.y) {
-                            game.world.splice(i, 1)
-                            game.world.splice(j, 1)
-                            enemy.push()
-                        }
-                }
-            }
 
-            if (bObj.x < 0 - bObj.width ||
-                bObj.x > canvas.width + bObj.width ||
-                bObj.y < 0 - bObj.height ||
-                bObj.y > canvas.height + bObj.height) {
-                game.world.splice(i, 1)
-                //console.log(this.bullets.length)
-            }
-
-        }
         if (this.x < wall.x + wall.width &&
             this.x + this.width > wall.x &&
             this.y + 10 > wall.y + wall.height &&
@@ -75,6 +38,7 @@ class Player {
         }
 
         else this.collision = "none"
+        //console.log("player " + this.y)
     }
     move(x, y) {
         this.x += x;

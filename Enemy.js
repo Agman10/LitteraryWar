@@ -12,6 +12,7 @@ class Enemy {
         //this.randomOffscreenPos = randomOffscreenPos;
         this.color = color
         this.type = "enemy"
+
     }
 
     update() {
@@ -80,31 +81,13 @@ class Enemy {
 
 
         this.move(this.xSpeed, this.ySpeed)
-
+        //console.log(this.y)
     }
 
     move(x, y) {
         this.x += x;
         this.y += y;
     }
-
-    /* push() {
-        this.randomOffscreenPos = Math.floor(Math.random() * 4)
-        let randomPosX = (Math.floor(Math.random() * 50)) * 10;
-        let randomPosY = (Math.floor(Math.random() * 50)) * 10;
-        if (this.randomOffscreenPos == 0) {
-            this.enemies.push(new Enemy(-50, randomPosY, 0, 0, "none"));
-        }
-        if (this.randomOffscreenPos == 1) {
-            this.enemies.push(new Enemy(500, randomPosY, 0, 0, "none"));
-        }
-        if (this.randomOffscreenPos == 2) {
-            this.enemies.push(new Enemy(randomPosX, -50, 0, 0, "none"));
-        }
-        if (this.randomOffscreenPos == 3) {
-            this.enemies.push(new Enemy(randomPosX, 500, 0, 0, "none"));
-        }
-    } */
 
     draw() {
         ctx.save();
@@ -131,8 +114,40 @@ class ShootingEnemy extends Enemy {
         this.collision = "none";
         this.bullets = [];
         this.moveSpeed = 0.1;
+        this.type = "shooter"
     }
-}
+    /* directionUpdate() {
+        if (player.x < this.x && player.y < this.y + 35) {
+            this.direction = "left"
+        } else this.direction = "downLeft" */
+    /* if (player.x > this.x) {
+        this.direction = "right";
+    } else if (player.x < this.x) {
+        this.direction = "left";
+    }
 
-enemy = new Enemy(300, 150)
-shootingEnemy = new ShootingEnemy(150, 300)
+    if (player.y > this.y) {
+        this.direction = "down";
+    } else if (player.y < this.y) {
+        this.direction = "up";
+    } */
+
+    //console.log(this.direction)
+    //}
+    shoot() {
+        let diagonal = 6;
+        let straight = 8;
+        let xSpeed = 0;
+        let ySpeed = 0;
+        let xPos = this.x;
+        let yPos = this.y;
+        let dir = this.direction;
+        let height = 25;
+        let width = 25;
+
+        game.world.push(new EnemyBullet(xPos, yPos, xSpeed, ySpeed, dir, height, width));
+    }
+
+}
+/* enemy = new Enemy()
+shootingEnemy = new ShootingEnemy() */

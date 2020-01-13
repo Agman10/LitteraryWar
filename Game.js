@@ -6,6 +6,9 @@ class Game {
     start() {
         document.addEventListener("Space", () => {
             player.shoot();
+            //game.world[0].directionUpdate()
+            game.world[0].shoot()
+
         });
         this.spawnEnemy();
         setInterval(() => this.loop(), 1000 / 60);
@@ -70,6 +73,46 @@ class Game {
         stars.update();
         //enemy.update();
         player.update();
+        //game.world[0].directionUpdate()
+        for (let obj of this.world) obj.update()
+        for (let i in game.world) {
+            let bObj = game.world[i]
+            if (bObj.type == "bullet") {
+                if (player.x < bObj.x + bObj.width &&
+                    player.x + player.width > bObj.x &&
+                    player.y < bObj.y + bObj.height &&
+                    player.y + player.height > bObj.y) {
+                    console.log("collision")
+                }
+                if (bObj.x < wall.x + wall.width &&
+                    bObj.x + bObj.width > wall.x &&
+                    bObj.y < wall.y + wall.height &&
+                    bObj.y + bObj.height > wall.y) {
+                    game.world.splice(i, 1)
+                }
+                for (let j in game.world) {
+                    let eObj = game.world[j]
+                    if (eObj.type == "shooter")
+                        if (eObj.x < bObj.x + bObj.width &&
+                            eObj.x + eObj.width > bObj.x &&
+                            eObj.y < bObj.y + bObj.height &&
+                            eObj.y + eObj.height > bObj.y) {
+                            game.world.splice(i, 1)
+                            game.world.splice(j, 1)
+                            game.spawnEnemy();
+                        }
+                }
+            }
+
+            if (bObj.x < 0 - bObj.width ||
+                bObj.x > canvas.width + bObj.width ||
+                bObj.y < 0 - bObj.height ||
+                bObj.y > canvas.height + bObj.height) {
+                game.world.splice(i, 1)
+                //console.log(this.bullets.length)
+            }
+
+        }
 
 
     }
@@ -89,15 +132,13 @@ class Game {
             bullet.draw();
             bullet.update();
         });
+
         //enemy.draw();
         /* enemy.enemies.forEach(enemy => {
             enemy.draw();
             enemy.update();
         }); */
-        for (let obj of this.world) {
-            obj.update()
-            obj.draw()
-        }
+        for (let obj of this.world) obj.draw()
         wall.draw();
         //console.log(Math.floor(Math.random() * 4))
         //enemy.push();
@@ -108,18 +149,17 @@ class Game {
     spawnEnemy(x, y) {
         let randomOffscreenPos = Math.floor(Math.random() * 4)
         if (randomOffscreenPos == 0) {
-            this.world.push(new Enemy(-50, y));
+            this.world.push(new ShootingEnemy(-50, y));
         }
         if (randomOffscreenPos == 1) {
-            this.world.push(new Enemy(500, y));
+            this.world.push(new ShootingEnemy(500, y));
         }
         if (randomOffscreenPos == 2) {
-            this.world.push(new Enemy(x, -50));
+            this.world.push(new ShootingEnemy(x, -50));
         }
         if (randomOffscreenPos == 3) {
-            this.world.push(new Enemy(x, 500));
+            this.world.push(new ShootingEnemy(x, 500));
         }
-
-        console.log(randomOffscreenPos)
+        //console.log(randomOffscreenPos)
     }
 }

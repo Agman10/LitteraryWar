@@ -67,12 +67,35 @@ class Bullet {
 }
 
 class EnemyBullet extends Bullet {
-    constructor() {
-        super();
+    constructor(xPos, yPos, xSpeed, ySpeed, dir, height, width) {
+        super(xPos, yPos, xSpeed, ySpeed, dir, height, width);
         this.color = "red"
+        this.type = "enemyBullet"
+    }
+    draw() {
+        ctx.save()
+        ctx.font = "14px Arial";
+        ctx.fillStyle = this.color;
+        ctx.strokeStyle = "white";
+
+        //ctx.fillRect(this.x, this.y, this.width, this.height)
+        //ctx.strokeRect(this.x, this.y, this.width, this.height)
+        ctx.shadowColor = this.color;
+        ctx.shadowOffsetX = 0;
+        ctx.shadowOffsetY = 0;
+        ctx.shadowBlur = 10;
+
+
+        ctx.textAlign = "center";
+        ctx.fillText("Z", this.x + 6, this.y + 12);
+        ctx.fillText("A", this.x + 18, this.y + 12);
+        ctx.fillText("P", this.x + 6, this.y + 24);
+        ctx.fillText("!", this.x + 18, this.y + 24);
+        ctx.restore();
+
     }
 }
 
-enemyBullet = new EnemyBullet(this.x, this.y);
-
 bullet = new Bullet(this.x, this.y);
+
+enemyBullet = new EnemyBullet(this.x, this.y);
