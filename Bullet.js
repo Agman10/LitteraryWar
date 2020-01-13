@@ -1,5 +1,5 @@
 class Bullet {
-    constructor(x, y, xSpeed, ySpeed, dir, height, width) {
+    constructor(x, y, xSpeed, ySpeed, dir, height, width, color = "#70ecfa") {
         this.x = x;
         this.y = y;
         this.xSpeed = xSpeed;
@@ -7,6 +7,8 @@ class Bullet {
         this.height = height;
         this.width = width;
         this.dir = dir;
+        this.type = "bullet";
+        this.color = color
     }
 
     update() {
@@ -22,12 +24,12 @@ class Bullet {
     draw() {
         ctx.save()
         ctx.font = "18px Arial";
-        ctx.fillStyle = "red";
+        ctx.fillStyle = this.color;
         ctx.strokeStyle = "white";
 
         //ctx.fillRect(this.x, this.y, this.width, this.height)
         //ctx.strokeRect(this.x, this.y, this.width, this.height)
-        ctx.shadowColor = "red";
+        ctx.shadowColor = this.color;
         ctx.shadowOffsetX = 0;
         ctx.shadowOffsetY = 0;
         ctx.shadowBlur = 10;
@@ -63,4 +65,14 @@ class Bullet {
         ctx.restore();
     }
 }
+
+class EnemyBullet extends Bullet {
+    constructor() {
+        super();
+        this.color = "red"
+    }
+}
+
+enemyBullet = new EnemyBullet(this.x, this.y);
+
 bullet = new Bullet(this.x, this.y);

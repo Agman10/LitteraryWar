@@ -11,34 +11,40 @@ class Player {
     }
 
     update() {
-        for (var i = 0; i < this.bullets.length; i++) {
-            if (this.x < this.bullets[i].x + this.bullets[i].width &&
-                this.x + this.width > this.bullets[i].x &&
-                this.y < this.bullets[i].y + this.bullets[i].height &&
-                this.y + this.height > this.bullets[i].y) {
-                console.log("collision")
-            }
-            if (this.bullets[i].x < wall.x + wall.width &&
-                this.bullets[i].x + this.bullets[i].width > wall.x &&
-                this.bullets[i].y < wall.y + wall.height &&
-                this.bullets[i].y + this.bullets[i].height > wall.y) {
-                this.bullets.splice(i, 1)
-            }
-            for (var j = 0; j < enemy.enemies.length; j++) {
-                if (enemy.enemies[j].x < this.bullets[i].x + this.bullets[i].width &&
-                    enemy.enemies[j].x + enemy.enemies[j].width > this.bullets[i].x &&
-                    enemy.enemies[j].y < this.bullets[i].y + this.bullets[i].height &&
-                    enemy.enemies[j].y + enemy.enemies[j].height > this.bullets[i].y) {
-                    this.bullets.splice(i, 1)
-                    enemy.enemies.splice(j, 1)
-                    enemy.push()
+        for (let i in game.world) {
+            let bObj = game.world[i]
+            if (bObj.type == "bullet") {
+                if (this.x < bObj.x + bObj.width &&
+                    this.x + this.width > bObj.x &&
+                    this.y < bObj.y + bObj.height &&
+                    this.y + this.height > bObj.y) {
+                    console.log("collision")
+                }
+                if (bObj.x < wall.x + wall.width &&
+                    bObj.x + bObj.width > wall.x &&
+                    bObj.y < wall.y + wall.height &&
+                    bObj.y + bObj.height > wall.y) {
+                    game.world.splice(i, 1)
+                }
+                for (let j in game.world) {
+                    let eObj = game.world[j]
+                    if (eObj.type == "enemy")
+                        if (eObj.x < bObj.x + bObj.width &&
+                            eObj.x + eObj.width > bObj.x &&
+                            eObj.y < bObj.y + bObj.height &&
+                            eObj.y + eObj.height > bObj.y) {
+                            game.world.splice(i, 1)
+                            game.world.splice(j, 1)
+                            enemy.push()
+                        }
                 }
             }
-            if (this.bullets[i].x < 0 - this.bullets[i].width ||
-                this.bullets[i].x > canvas.width + this.bullets[i].width ||
-                this.bullets[i].y < 0 - this.bullets[i].height ||
-                this.bullets[i].y > canvas.height + this.bullets[i].height) {
-                this.bullets.splice(i, 1)
+
+            if (bObj.x < 0 - bObj.width ||
+                bObj.x > canvas.width + bObj.width ||
+                bObj.y < 0 - bObj.height ||
+                bObj.y > canvas.height + bObj.height) {
+                game.world.splice(i, 1)
                 //console.log(this.bullets.length)
             }
 
@@ -207,7 +213,7 @@ class Player {
                 break
 
         }
-        this.bullets.push(new Bullet(xPos, yPos, xSpeed, ySpeed, dir, height, width));
+        game.world.push(new Bullet(xPos, yPos, xSpeed, ySpeed, dir, height, width));
     }
 }
 player = new Player(200, 300);

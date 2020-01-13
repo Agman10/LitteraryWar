@@ -20,6 +20,6 @@ window.onload = () => {
     game.start();
     stars.push();
     //console.log(wall.x + " " + wall.y)
-    enemy.push();
-    shootingEnemy.push();
+    //enemy.push();
+    //shootingEnemy.push();
 }

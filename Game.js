@@ -1,10 +1,13 @@
 class Game {
-    constructor() { }
+    constructor() {
+        this.world = [];
+    }
 
     start() {
         document.addEventListener("Space", () => {
             player.shoot();
         });
+        this.spawnEnemy();
         setInterval(() => this.loop(), 1000 / 60);
         setInterval(() => this.logic(), 1000 / 60);
     }
@@ -65,8 +68,10 @@ class Game {
         } */
 
         stars.update();
-        enemy.update();
+        //enemy.update();
         player.update();
+
+
     }
 
     loop() {
@@ -85,15 +90,36 @@ class Game {
             bullet.update();
         });
         //enemy.draw();
-        enemy.enemies.forEach(enemy => {
+        /* enemy.enemies.forEach(enemy => {
             enemy.draw();
             enemy.update();
-        });
+        }); */
+        for (let obj of this.world) {
+            obj.update()
+            obj.draw()
+        }
         wall.draw();
         //console.log(Math.floor(Math.random() * 4))
         //enemy.push();
         //console.log(player.collision)
         //console.log((Math.floor(Math.random() * 50)) * 10)
         //console.log(Math.floor(Math.random() * 4))
+    }
+    spawnEnemy(x, y) {
+        let randomOffscreenPos = Math.floor(Math.random() * 4)
+        if (randomOffscreenPos == 0) {
+            this.world.push(new Enemy(-50, y));
+        }
+        if (randomOffscreenPos == 1) {
+            this.world.push(new Enemy(500, y));
+        }
+        if (randomOffscreenPos == 2) {
+            this.world.push(new Enemy(x, -50));
+        }
+        if (randomOffscreenPos == 3) {
+            this.world.push(new Enemy(x, 500));
+        }
+
+        console.log(randomOffscreenPos)
     }
 }
