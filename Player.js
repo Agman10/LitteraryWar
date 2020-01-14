@@ -108,7 +108,7 @@ class Player {
 
     }
     shoot() {
-        enemyBullet.getDirection();
+        //enemyBullet.getDirection();
         let diagonal = 6;
         let straight = 8;
         let xSpeed = 0;
