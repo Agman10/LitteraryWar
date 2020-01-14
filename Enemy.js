@@ -109,12 +109,13 @@ class ShootingEnemy extends Enemy {
     constructor() {
         super();
         this.color = "gray"
-        this.direction = "up";
-        this.bulletDirection = "up";
+        this.direction = 0;
+        //this.bulletDirection = 0;
         this.collision = "none";
         this.bullets = [];
-        this.moveSpeed = 0.1;
+        this.moveSpeed = 1;
         this.type = "shooter"
+
     }
     /* directionUpdate() {
         if (player.x < this.x && player.y < this.y + 35) {
@@ -134,18 +135,22 @@ class ShootingEnemy extends Enemy {
 
     //console.log(this.direction)
     //}
+
+
+
     shoot() {
         let diagonal = 6;
         let straight = 8;
         let xSpeed = 0;
-        let ySpeed = 0;
-        let xPos = this.x;
-        let yPos = this.y;
+        let ySpeed = -5;
+        let speed = 5
+        let xPos = this.x + 12;
+        let yPos = this.y - 15;
         let dir = this.direction;
         let height = 25;
         let width = 25;
 
-        game.world.push(new EnemyBullet(xPos, yPos, xSpeed, ySpeed, dir, height, width));
+        game.world.push(new EnemyBullet(xPos, yPos, speed, dir, height, width));
     }
 
 }

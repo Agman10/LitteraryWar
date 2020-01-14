@@ -7,7 +7,13 @@ class Game {
         document.addEventListener("Space", () => {
             player.shoot();
             //game.world[0].directionUpdate()
+
+        });
+        document.addEventListener("KeyA", () => {
+
+
             game.world[0].shoot()
+            //game.world[0].getDirection()
 
         });
         this.spawnEnemy();
@@ -19,33 +25,37 @@ class Game {
         let speed = 3;
 
         if (keysDown[38]) {
-            player.direction = "up"
+            //up
+            player.direction = 270
         }
         if (keysDown[39]) {
-            player.direction = "right"
+            //right
+            player.direction = 0
         }
         if (keysDown[40]) {
-            player.direction = "down"
+            //down
+            player.direction = 90
         }
         if (keysDown[37]) {
-            player.direction = "left"
+            //left
+            player.direction = 180
         }
 
         if (keysDown[38] == true && keysDown[39] == true) {
             // up + right
-            player.direction = "upRight"
+            player.direction = 315
         }
         else if (keysDown[39] == true && keysDown[40] == true) {
             //right + down
-            player.direction = "downRight"
+            player.direction = 45
         }
         if (keysDown[40] == true && keysDown[37] == true) {
             //down + left
-            player.direction = "downLeft"
+            player.direction = 135
         }
         else if (keysDown[37] == true && keysDown[38] == true) {
             //left + up
-            player.direction = "upLeft"
+            player.direction = 225
         }
 
         if (keysDown[38] && player.y > 0 && player.collision != "up") {
@@ -73,26 +83,14 @@ class Game {
         stars.update();
         //enemy.update();
         player.update();
-        //game.world[0].directionUpdate()
+        //game.world[0].getDirection()
         for (let obj of this.world) obj.update()
         for (let i in game.world) {
             let bObj = game.world[i]
             if (bObj.type == "bullet") {
-                if (player.x < bObj.x + bObj.width &&
-                    player.x + player.width > bObj.x &&
-                    player.y < bObj.y + bObj.height &&
-                    player.y + player.height > bObj.y) {
-                    console.log("collision")
-                }
-                if (bObj.x < wall.x + wall.width &&
-                    bObj.x + bObj.width > wall.x &&
-                    bObj.y < wall.y + wall.height &&
-                    bObj.y + bObj.height > wall.y) {
-                    game.world.splice(i, 1)
-                }
                 for (let j in game.world) {
                     let eObj = game.world[j]
-                    if (eObj.type == "shooter")
+                    if (eObj.type == "shooter" || eObj.type == "enemy") {
                         if (eObj.x < bObj.x + bObj.width &&
                             eObj.x + eObj.width > bObj.x &&
                             eObj.y < bObj.y + bObj.height &&
@@ -101,9 +99,33 @@ class Game {
                             game.world.splice(j, 1)
                             game.spawnEnemy();
                         }
+                        /* if (player.x < eObj.x + eObj.width &&
+                            player.x + player.width > eObj.x &&
+                            player.y < eObj.y + eObj.height &&
+                            player.y + player.height > eObj.y) {
+                            game.world.splice(j, 1)
+                            game.spawnEnemy();
+                        } */
+                    }
                 }
             }
+            if (bObj.type == "bullet" || bObj.type == "enemyBullet") {
+                if (bObj.x < wall.x + wall.width &&
+                    bObj.x + bObj.width > wall.x &&
+                    bObj.y < wall.y + wall.height &&
+                    bObj.y + bObj.height > wall.y) {
+                    game.world.splice(i, 1)
+                }
 
+                if (player.x < bObj.x + bObj.width &&
+                    player.x + player.width > bObj.x &&
+                    player.y < bObj.y + bObj.height &&
+                    player.y + player.height > bObj.y) {
+                    console.log("collision")
+                    game.world.splice(i, 1)
+                    player.lives -= 1;
+                }
+            }
             if (bObj.x < 0 - bObj.width ||
                 bObj.x > canvas.width + bObj.width ||
                 bObj.y < 0 - bObj.height ||
@@ -111,9 +133,18 @@ class Game {
                 game.world.splice(i, 1)
                 //console.log(this.bullets.length)
             }
-
+            /* for (let e in game.world) {
+                let ebObj = game.world[e]
+                if (ebObj.type == "enemyBullet") {
+                    if (ebObj.x < wall.x + wall.width &&
+                        ebObj.x + ebObj.width > wall.x &&
+                        ebObj.y < wall.y + wall.height &&
+                        ebObj.y + ebObj.height > wall.y) {
+                        game.world.splice(e, 1)
+                    }
+                }
+            } */
         }
-
 
     }
 

@@ -5,9 +5,10 @@ class Player {
         this.height = 50;
         this.width = 50;
         this.bullets = []
-        this.direction = "up";
-        this.bulletDirection = "up";
+        this.direction = 0;
+        this.bulletDirection = 0;
         this.collision = "none";
+        this.lives = 3;
     }
 
     update() {
@@ -38,6 +39,10 @@ class Player {
         }
 
         else this.collision = "none"
+        ctx.save();
+        ctx.font = "15px Arial";
+        ctx.fillText("Lives: " + this.lives, 5, 15);
+        ctx.restore();
         //console.log("player " + this.y)
     }
     move(x, y) {
@@ -56,43 +61,45 @@ class Player {
         ctx.fillText("H", this.x + 25, this.y + 25);
         ctx.fillText("I", this.x + 5, this.y + 50);
         ctx.fillText("P", this.x + 25, this.y + 50);
-
-        ctx.restore();
         ctx.save();
         ctx.fillStyle = "lightblue";
         ctx.font = "10px Arial";
-        if (this.direction == "up") {
+        if (this.direction == 270) {
             ctx.fillText("G", this.x + 21, this.y - 16);
             ctx.fillText("U", this.x + 21, this.y - 8);
             ctx.fillText("N", this.x + 21, this.y);
         }
-        if (this.direction == "upRight") {
+        if (this.direction == 315) {
             ctx.fillText("G", this.x + 50, this.y);
             ctx.fillText("U", this.x + 56, this.y - 8);
             ctx.fillText("N", this.x + 62, this.y - 16);
         }
-        if (this.direction == "right") {
+        if (this.direction == 0) {
             ctx.fillText("GUN", this.x + 50, this.y + 27);
         }
-        if (this.direction == "downRight") {
+        if (this.direction == 45) {
+            //downright
             ctx.fillText("G", this.x + 50, this.y + 58);
             ctx.fillText("U", this.x + 56, this.y + 66);
             ctx.fillText("N", this.x + 62, this.y + 74);
         }
-        if (this.direction == "down") {
+        if (this.direction == 90) {
             ctx.fillText("G", this.x + 21, this.y + 58);
             ctx.fillText("U", this.x + 21, this.y + 66);
             ctx.fillText("N", this.x + 21, this.y + 74);
         }
-        if (this.direction == "downLeft") {
+        if (this.direction == 135) {
+            //downleft
             ctx.fillText("G", this.x - 20, this.y + 74);
             ctx.fillText("U", this.x - 14, this.y + 66);
             ctx.fillText("N", this.x - 8, this.y + 58);
         }
-        if (this.direction == "left") {
+        if (this.direction == 180) {
+            //left
             ctx.fillText("GUN", this.x - 24, this.y + 27);
         }
-        if (this.direction == "upLeft") {
+        if (this.direction == 225) {
+            //upleft
             ctx.fillText("G", this.x - 20, this.y - 16);
             ctx.fillText("U", this.x - 14, this.y - 8);
             ctx.fillText("N", this.x - 8, this.y);
@@ -101,6 +108,7 @@ class Player {
 
     }
     shoot() {
+        enemyBullet.getDirection();
         let diagonal = 6;
         let straight = 8;
         let xSpeed = 0;
@@ -110,66 +118,69 @@ class Player {
         let dir = this.direction;
         let height = bullet.height;
         let width = bullet.width;
+        let speed = 5
         switch (this.direction) {
-            case "up":
-                xSpeed = 0;
-                ySpeed = -straight;
+            case 270:
+                //up
+                speed = 5;
                 xPos = this.x + 17;
                 yPos = this.y - 50;
                 height = 45
                 width = 16
                 break
-            case "upRight":
-                xSpeed = diagonal;
-                ySpeed = -diagonal;
+            case 315:
+                //upright
+                //speed = 5
                 xPos = this.x + 55;
                 yPos = this.y - 50;
                 height = 45
                 width = 30
                 break
-            case "right":
-                xSpeed = straight;
-                ySpeed = 0;
+            case 0:
+                //left
+                speed = 5;
                 xPos = this.x + 55;
                 yPos = this.y + 17;
                 height = 16
                 width = 45
                 break
-            case "downRight":
-                xSpeed = diagonal;
-                ySpeed = diagonal;
+            case 45:
+                //downright
+                speed = 5
                 xPos = this.x + 55;
                 yPos = this.y + 55;
                 height = 45
                 width = 30
                 break
-            case "down":
-                xSpeed = 0;
-                ySpeed = straight;
+            case 90:
+                //down
+                speed = 5;
                 xPos = this.x + 17;
                 yPos = this.y + 55;
                 height = 45
                 width = 16
                 break
-            case "downLeft":
-                xSpeed = -diagonal;
-                ySpeed = diagonal;
+            case 135:
+                //downleft
+                speed = 5
                 xPos = this.x - 34;
                 yPos = this.y + 55;
                 height = 45
                 width = 30
                 break
-            case "left":
-                xSpeed = -straight;
-                ySpeed = 0;
+            case 180:
+                //left
+                /* xSpeed = -straight;
+                ySpeed = 0; */
+                speed = 5;
                 xPos = this.x - 50;
                 yPos = this.y + 17;
                 height = 16
                 width = 45
                 break
-            case "upLeft":
-                xSpeed = -diagonal;
-                ySpeed = -diagonal;
+            case 225:
+                //upleft
+                speed = 5
                 xPos = this.x - 34;
                 yPos = this.y - 50;
                 height = 45
@@ -177,7 +188,7 @@ class Player {
                 break
 
         }
-        game.world.push(new Bullet(xPos, yPos, xSpeed, ySpeed, dir, height, width));
+        game.world.push(new Bullet(xPos, yPos, speed, dir, height, width));
     }
 }
 player = new Player(200, 300);

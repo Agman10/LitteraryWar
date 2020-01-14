@@ -1,24 +1,27 @@
 class Bullet {
-    constructor(x, y, xSpeed, ySpeed, dir, height, width, color = "#70ecfa") {
+    constructor(x, y, speed = 5, dir = 0, height, width, color = "#70ecfa") {
         this.x = x;
         this.y = y;
-        this.xSpeed = xSpeed;
-        this.ySpeed = ySpeed;
+        /* this.xSpeed = xSpeed;
+        this.ySpeed = ySpeed; */
         this.height = height;
         this.width = width;
         this.dir = dir;
         this.type = "bullet";
         this.color = color
+        this.speed = speed
     }
 
     update() {
-        this.move(this.xSpeed, this.ySpeed)
+        this.move();
+        //this.dir = 0;
         //this.move(0, 0)
+        console.log(this.dir)
     }
 
-    move(x, y) {
-        this.x += x;
-        this.y += y;
+    move() {
+        this.x += Math.cos(this.dir / (180 / Math.PI)) * this.speed;
+        this.y += Math.sin(this.dir / (180 / Math.PI)) * this.speed;
     }
 
     draw() {
@@ -35,29 +38,29 @@ class Bullet {
         ctx.shadowBlur = 10;
 
 
-        if (this.dir == "up" || this.dir == "down") {
+        if (this.dir == 270 || this.dir == 90) {
             ctx.textAlign = "center";
             ctx.fillText("Z", this.x + 8, this.y + 14);
             ctx.fillText("A", this.x + 8, this.y + 29);
             ctx.fillText("P", this.x + 8, this.y + 44);
-        } if (this.dir == "right" || this.dir == "left") {
+        } if (this.dir == 0 || this.dir == 180) {
             ctx.fillText("Z", this.x + 2, this.y + 15);
             ctx.fillText("A", this.x + 17, this.y + 15);
             ctx.fillText("P", this.x + 32, this.y + 15);
             //ctx.strokeRect(this.x, this.y, this.width, this.height)
-        } if (this.dir == "upRight") {
+        } if (this.dir == 315) {
             ctx.fillText("Z", this.x, this.y + 44);
             ctx.fillText("A", this.x + 8, this.y + 29);
             ctx.fillText("P", this.x + 16, this.y + 14);
-        } if (this.dir == "downRight") {
+        } if (this.dir == 45) {
             ctx.fillText("Z", this.x, this.y + 14);
             ctx.fillText("A", this.x + 8, this.y + 28);
             ctx.fillText("P", this.x + 16, this.y + 44);
-        } if (this.dir == "downLeft") {
+        } if (this.dir == 135) {
             ctx.fillText("Z", this.x, this.y + 44);
             ctx.fillText("A", this.x + 8, this.y + 29);
             ctx.fillText("P", this.x + 16, this.y + 14);
-        } if (this.dir == "upLeft") {
+        } if (this.dir == 225) {
             ctx.fillText("Z", this.x, this.y + 14);
             ctx.fillText("A", this.x + 8, this.y + 28);
             ctx.fillText("P", this.x + 16, this.y + 44);
@@ -67,11 +70,16 @@ class Bullet {
 }
 
 class EnemyBullet extends Bullet {
-    constructor(xPos, yPos, xSpeed, ySpeed, dir, height, width) {
-        super(xPos, yPos, xSpeed, ySpeed, dir, height, width);
+    constructor(xPos, yPos, speed, dir = 0, height, width) {
+        super(xPos, yPos, speed, dir, height, width);
         this.color = "red"
         this.type = "enemyBullet"
+        this.dir = (Math.atan2(
+            player.y + player.height / 2 - (this.y + this.height / 2),
+            player.x + player.width / 2 - (this.x + this.width / 2)
+        ) * 180) / Math.PI;
     }
+
     draw() {
         ctx.save()
         ctx.font = "14px Arial";
