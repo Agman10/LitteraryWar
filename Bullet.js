@@ -8,15 +8,15 @@ class Bullet {
         this.width = width;
         this.dir = dir;
         this.type = "bullet";
-        this.color = color
-        this.speed = speed
+        this.color = color;
+        this.speed = speed;
     }
 
     update() {
         this.move();
-        //this.dir = 0;
+        //this.dir += 5;
         //this.move(0, 0)
-        console.log(this.dir)
+        //console.log(this.dir)
     }
 
     move() {

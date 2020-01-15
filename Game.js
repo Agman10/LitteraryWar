@@ -11,18 +11,46 @@ class Game {
         });
         document.addEventListener("KeyA", () => {
 
-
-            game.world[0].shoot()
+            for (let i in game.world) {
+                let eObj = game.world[i]
+                if (eObj.type == "shooter") {
+                    game.world[i].shoot()
+                }
+            }
             //game.world[0].getDirection()
 
         });
         this.spawnEnemy();
         setInterval(() => this.loop(), 1000 / 60);
+
         setInterval(() => this.logic(), 1000 / 60);
+        setInterval(() => this.enemyShoot(), 2500 / 1);
+        setInterval(() => this.deathAnimation(), 1000 / 2);
+
+
     }
 
     logic() {
-        let speed = 3;
+        if (keysDown[38] && player.y > 0 && player.collision != "up") {
+            //up
+            player.direction = 270
+            player.move()
+        }
+        if (keysDown[39] && player.x < 500 - player.width && player.collision != "right") {
+            //right
+            player.direction = 0
+            player.move()
+        }
+        if (keysDown[40] && player.y < 500 - player.height && player.collision != "down") {
+            //down
+            player.direction = 90
+            player.move()
+        }
+        if (keysDown[37] && player.x > 0 && player.collision != "left") {
+            //left
+            player.direction = 180
+            player.move()
+        }
 
         if (keysDown[38]) {
             //up
@@ -41,39 +69,24 @@ class Game {
             player.direction = 180
         }
 
-        if (keysDown[38] == true && keysDown[39] == true) {
+        if (keysDown[38] && keysDown[39]) {
             // up + right
             player.direction = 315
         }
-        else if (keysDown[39] == true && keysDown[40] == true) {
+        else if (keysDown[39] && keysDown[40]) {
             //right + down
             player.direction = 45
         }
-        if (keysDown[40] == true && keysDown[37] == true) {
+        if (keysDown[40] && keysDown[37]) {
             //down + left
             player.direction = 135
         }
-        else if (keysDown[37] == true && keysDown[38] == true) {
+        else if (keysDown[37] && keysDown[38]) {
             //left + up
             player.direction = 225
         }
 
-        if (keysDown[38] && player.y > 0 && player.collision != "up") {
-            //up
-            player.move(0, -speed)
-        }
-        if (keysDown[39] && player.x < 500 - player.width && player.collision != "right") {
-            //right
-            player.move(speed, 0)
-        }
-        if (keysDown[40] && player.y < 500 - player.height && player.collision != "down") {
-            //down
-            player.move(0, speed)
-        }
-        if (keysDown[37] && player.x > 0 && player.collision != "left") {
-            //left
-            player.move(-speed, 0)
-        }
+
 
         /* if (player.x < wall.width - player.width &&
             player.y < wall.height - player.height) {
@@ -87,27 +100,31 @@ class Game {
         for (let obj of this.world) obj.update()
         for (let i in game.world) {
             let bObj = game.world[i]
-            if (bObj.type == "bullet") {
-                for (let j in game.world) {
-                    let eObj = game.world[j]
-                    if (eObj.type == "shooter" || eObj.type == "enemy") {
+            for (let j in game.world) {
+                let eObj = game.world[j]
+
+                if (eObj.type == "shooter" || eObj.type == "enemy") {
+                    if (bObj.type == "bullet") {
                         if (eObj.x < bObj.x + bObj.width &&
                             eObj.x + eObj.width > bObj.x &&
                             eObj.y < bObj.y + bObj.height &&
                             eObj.y + eObj.height > bObj.y) {
                             game.world.splice(i, 1)
                             game.world.splice(j, 1)
+                            player.score += 1;
                             game.spawnEnemy();
                         }
-                        /* if (player.x < eObj.x + eObj.width &&
-                            player.x + player.width > eObj.x &&
-                            player.y < eObj.y + eObj.height &&
-                            player.y + player.height > eObj.y) {
-                            game.world.splice(j, 1)
-                            game.spawnEnemy();
-                        } */
+                    }
+                    if (player.x < eObj.x + eObj.width &&
+                        player.x + player.width > eObj.x &&
+                        player.y < eObj.y + eObj.height &&
+                        player.y + player.height > eObj.y) {
+                        game.world.splice(j, 1)
+                        game.spawnEnemy();
+                        player.lives -= 1;
                     }
                 }
+
             }
             if (bObj.type == "bullet" || bObj.type == "enemyBullet") {
                 if (bObj.x < wall.x + wall.width &&
@@ -121,7 +138,7 @@ class Game {
                     player.x + player.width > bObj.x &&
                     player.y < bObj.y + bObj.height &&
                     player.y + player.height > bObj.y) {
-                    console.log("collision")
+                    //console.log("collision")
                     game.world.splice(i, 1)
                     player.lives -= 1;
                 }
@@ -133,17 +150,6 @@ class Game {
                 game.world.splice(i, 1)
                 //console.log(this.bullets.length)
             }
-            /* for (let e in game.world) {
-                let ebObj = game.world[e]
-                if (ebObj.type == "enemyBullet") {
-                    if (ebObj.x < wall.x + wall.width &&
-                        ebObj.x + ebObj.width > wall.x &&
-                        ebObj.y < wall.y + wall.height &&
-                        ebObj.y + ebObj.height > wall.y) {
-                        game.world.splice(e, 1)
-                    }
-                }
-            } */
         }
 
     }
@@ -151,7 +157,15 @@ class Game {
     loop() {
         this.render();
     }
-
+    deathAnimation() {
+        if (player.exploding == true) {
+            player.explode();
+        }
+        if (player.explodingFrame == 0) {
+            player.exploding = false;
+            player.explodingFrame = 6;
+        }
+    }
     render() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         stars.stars.forEach(stars => {
@@ -177,20 +191,47 @@ class Game {
         //console.log((Math.floor(Math.random() * 50)) * 10)
         //console.log(Math.floor(Math.random() * 4))
     }
+    enemyShoot() {
+        for (let i in game.world) {
+            let eObj = game.world[i]
+            if (eObj.type == "shooter") {
+                game.world[i].shoot();
+
+            }
+        }
+    }
+
     spawnEnemy(x, y) {
+
         let randomOffscreenPos = Math.floor(Math.random() * 4)
-        if (randomOffscreenPos == 0) {
-            this.world.push(new ShootingEnemy(-50, y));
+        let randomEnemyType = Math.floor(Math.random() * 2)
+        let enemy = Enemy;
+
+        switch (randomOffscreenPos) {
+            case 0:
+                x = -50
+                break
+            case 1:
+                x = 500
+                break
+            case 2:
+                y = -50
+                break
+            case 3:
+                y = -50
+                break
+
         }
-        if (randomOffscreenPos == 1) {
-            this.world.push(new ShootingEnemy(500, y));
+        switch (randomEnemyType) {
+            case 0:
+                enemy = Enemy;
+                break
+            case 1:
+                enemy = ShootingEnemy;
+                break
         }
-        if (randomOffscreenPos == 2) {
-            this.world.push(new ShootingEnemy(x, -50));
-        }
-        if (randomOffscreenPos == 3) {
-            this.world.push(new ShootingEnemy(x, 500));
-        }
+        this.world.push(new enemy(x, y));
+        //console.log(randomEnemyType)
         //console.log(randomOffscreenPos)
     }
 }

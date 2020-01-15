@@ -106,46 +106,22 @@ class Enemy {
 
 
 class ShootingEnemy extends Enemy {
-    constructor() {
-        super();
+    constructor(x, y) {
+        super(x, y);
         this.color = "gray"
         this.direction = 0;
         //this.bulletDirection = 0;
         this.collision = "none";
         this.bullets = [];
-        this.moveSpeed = 1;
+        this.moveSpeed = 0.5;
         this.type = "shooter"
 
     }
-    /* directionUpdate() {
-        if (player.x < this.x && player.y < this.y + 35) {
-            this.direction = "left"
-        } else this.direction = "downLeft" */
-    /* if (player.x > this.x) {
-        this.direction = "right";
-    } else if (player.x < this.x) {
-        this.direction = "left";
-    }
-
-    if (player.y > this.y) {
-        this.direction = "down";
-    } else if (player.y < this.y) {
-        this.direction = "up";
-    } */
-
-    //console.log(this.direction)
-    //}
-
-
 
     shoot() {
-        let diagonal = 6;
-        let straight = 8;
-        let xSpeed = 0;
-        let ySpeed = -5;
-        let speed = 5
+        let speed = 3
         let xPos = this.x + 12;
-        let yPos = this.y - 15;
+        let yPos = this.y + 15;
         let dir = this.direction;
         let height = 25;
         let width = 25;

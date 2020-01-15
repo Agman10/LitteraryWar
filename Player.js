@@ -8,7 +8,12 @@ class Player {
         this.direction = 0;
         this.bulletDirection = 0;
         this.collision = "none";
+        this.alive = true;
+        this.exploding = false;
+        this.explodingFrame = 6;
         this.lives = 3;
+        this.score = 0;
+        this.speed = 2.5;
     }
 
     update() {
@@ -42,77 +47,121 @@ class Player {
         ctx.save();
         ctx.font = "15px Arial";
         ctx.fillText("Lives: " + this.lives, 5, 15);
+        ctx.fillText("Score: " + this.score, 5, 30);
         ctx.restore();
         //console.log("player " + this.y)
+
     }
-    move(x, y) {
-        this.x += x;
-        this.y += y;
+    move() {
+        this.x += Math.cos(this.direction / (180 / Math.PI)) * this.speed;
+        this.y += Math.sin(this.direction / (180 / Math.PI)) * this.speed;
+        /* this.x += x;
+        this.y += y; */
         //console.log(this.x + " " + this.y)
     }
     draw() {
-        ctx.save();
-        ctx.font = "30px Arial";
-        ctx.fillStyle = "white";
-        ctx.strokeStyle = "white";
-        //ctx.fillRect(this.x, this.y, this.width, this.height);
-        //ctx.strokeRect(this.x, this.y, this.width, this.height);
-        ctx.fillText("S", this.x, this.y + 25);
-        ctx.fillText("H", this.x + 25, this.y + 25);
-        ctx.fillText("I", this.x + 5, this.y + 50);
-        ctx.fillText("P", this.x + 25, this.y + 50);
-        ctx.save();
-        ctx.fillStyle = "lightblue";
-        ctx.font = "10px Arial";
-        if (this.direction == 270) {
-            ctx.fillText("G", this.x + 21, this.y - 16);
-            ctx.fillText("U", this.x + 21, this.y - 8);
-            ctx.fillText("N", this.x + 21, this.y);
-        }
-        if (this.direction == 315) {
-            ctx.fillText("G", this.x + 50, this.y);
-            ctx.fillText("U", this.x + 56, this.y - 8);
-            ctx.fillText("N", this.x + 62, this.y - 16);
-        }
-        if (this.direction == 0) {
-            ctx.fillText("GUN", this.x + 50, this.y + 27);
-        }
-        if (this.direction == 45) {
-            //downright
-            ctx.fillText("G", this.x + 50, this.y + 58);
-            ctx.fillText("U", this.x + 56, this.y + 66);
-            ctx.fillText("N", this.x + 62, this.y + 74);
-        }
-        if (this.direction == 90) {
-            ctx.fillText("G", this.x + 21, this.y + 58);
-            ctx.fillText("U", this.x + 21, this.y + 66);
-            ctx.fillText("N", this.x + 21, this.y + 74);
-        }
-        if (this.direction == 135) {
-            //downleft
-            ctx.fillText("G", this.x - 20, this.y + 74);
-            ctx.fillText("U", this.x - 14, this.y + 66);
-            ctx.fillText("N", this.x - 8, this.y + 58);
-        }
-        if (this.direction == 180) {
-            //left
-            ctx.fillText("GUN", this.x - 24, this.y + 27);
-        }
-        if (this.direction == 225) {
-            //upleft
-            ctx.fillText("G", this.x - 20, this.y - 16);
-            ctx.fillText("U", this.x - 14, this.y - 8);
-            ctx.fillText("N", this.x - 8, this.y);
-        }
-        ctx.restore();
+        if (player.alive && !player.exploding) {
+            ctx.save();
+            ctx.font = "30px Arial";
+            ctx.fillStyle = "white";
+            ctx.strokeStyle = "white";
+            //ctx.fillRect(this.x, this.y, this.width, this.height);
+            //ctx.strokeRect(this.x, this.y, this.width, this.height);
+            ctx.fillText("S", this.x, this.y + 25);
+            ctx.fillText("H", this.x + 25, this.y + 25);
+            ctx.fillText("I", this.x + 5, this.y + 50);
+            ctx.fillText("P", this.x + 25, this.y + 50);
 
+            ctx.save();
+            ctx.fillStyle = "lightblue";
+            ctx.font = "10px Arial";
+            if (this.direction == 270) {
+                ctx.fillText("G", this.x + 21, this.y - 16);
+                ctx.fillText("U", this.x + 21, this.y - 8);
+                ctx.fillText("N", this.x + 21, this.y);
+            }
+            if (this.direction == 315) {
+                ctx.fillText("G", this.x + 50, this.y);
+                ctx.fillText("U", this.x + 56, this.y - 8);
+                ctx.fillText("N", this.x + 62, this.y - 16);
+            }
+            if (this.direction == 0) {
+                ctx.fillText("GUN", this.x + 50, this.y + 27);
+            }
+            if (this.direction == 45) {
+                //downright
+                ctx.fillText("G", this.x + 50, this.y + 58);
+                ctx.fillText("U", this.x + 56, this.y + 66);
+                ctx.fillText("N", this.x + 62, this.y + 74);
+            }
+            if (this.direction == 90) {
+                ctx.fillText("G", this.x + 21, this.y + 58);
+                ctx.fillText("U", this.x + 21, this.y + 66);
+                ctx.fillText("N", this.x + 21, this.y + 74);
+            }
+            if (this.direction == 135) {
+                //downleft
+                ctx.fillText("G", this.x - 20, this.y + 74);
+                ctx.fillText("U", this.x - 14, this.y + 66);
+                ctx.fillText("N", this.x - 8, this.y + 58);
+            }
+            if (this.direction == 180) {
+                //left
+                ctx.fillText("GUN", this.x - 24, this.y + 27);
+            }
+            if (this.direction == 225) {
+                //upleft
+                ctx.fillText("G", this.x - 20, this.y - 16);
+                ctx.fillText("U", this.x - 14, this.y - 8);
+                ctx.fillText("N", this.x - 8, this.y);
+            }
+            ctx.restore();
+        }
+        if (player.exploding) {
+            ctx.save();
+            //ctx.strokeRect(this.x, this.y, this.width, this.height);
+            ctx.font = "15px Arial";
+            ctx.fillStyle = "orange";
+            ctx.strokeStyle = "white";
+            ctx.fillText("EXPLO", this.x, this.y + 12);
+            ctx.restore();
+
+            ctx.save();
+            ctx.font = "19px Arial";
+            ctx.fillStyle = "orange";
+            ctx.fillText("SION", this.x + 1, this.y + 27);
+            ctx.restore();
+
+            ctx.save();
+            ctx.font = "30px Arial";
+            ctx.fillStyle = "orange";
+            ctx.fillText("IIIIII", this.x, this.y + 50);
+
+        }
+
+    }
+
+    hit() {
+        if (!this.exploding && this.alive) {
+            this.lives -= 1;
+            //this.x = 112;
+            this.exploding = true;
+            this.explode()
+        }
+    }
+
+    explode() {
+        if (this.exploding) {
+            //this.exploding = true;
+            this.explodingFrame--
+            //setInterval(() => this.explodingFrame--, 1000 / 1);
+        } /* if (this.explodingFrame == 0) {
+            this.exploding = false;
+            this.explodingFrame = 6
+        } */
     }
     shoot() {
         //enemyBullet.getDirection();
-        let diagonal = 6;
-        let straight = 8;
-        let xSpeed = 0;
-        let ySpeed = 0;
         let xPos = this.x;
         let yPos = this.y;
         let dir = this.direction;
@@ -122,7 +171,6 @@ class Player {
         switch (this.direction) {
             case 270:
                 //up
-                speed = 5;
                 xPos = this.x + 17;
                 yPos = this.y - 50;
                 height = 45
@@ -130,7 +178,6 @@ class Player {
                 break
             case 315:
                 //upright
-                //speed = 5
                 xPos = this.x + 55;
                 yPos = this.y - 50;
                 height = 45
@@ -138,7 +185,6 @@ class Player {
                 break
             case 0:
                 //left
-                speed = 5;
                 xPos = this.x + 55;
                 yPos = this.y + 17;
                 height = 16
@@ -146,7 +192,6 @@ class Player {
                 break
             case 45:
                 //downright
-                speed = 5
                 xPos = this.x + 55;
                 yPos = this.y + 55;
                 height = 45
@@ -154,7 +199,6 @@ class Player {
                 break
             case 90:
                 //down
-                speed = 5;
                 xPos = this.x + 17;
                 yPos = this.y + 55;
                 height = 45
@@ -162,7 +206,6 @@ class Player {
                 break
             case 135:
                 //downleft
-                speed = 5
                 xPos = this.x - 34;
                 yPos = this.y + 55;
                 height = 45
@@ -170,9 +213,6 @@ class Player {
                 break
             case 180:
                 //left
-                /* xSpeed = -straight;
-                ySpeed = 0; */
-                speed = 5;
                 xPos = this.x - 50;
                 yPos = this.y + 17;
                 height = 16
@@ -180,7 +220,6 @@ class Player {
                 break
             case 225:
                 //upleft
-                speed = 5
                 xPos = this.x - 34;
                 yPos = this.y - 50;
                 height = 45
