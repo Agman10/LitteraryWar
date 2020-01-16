@@ -108,7 +108,7 @@ class Enemy {
 class ShootingEnemy extends Enemy {
     constructor(x, y) {
         super(x, y);
-        this.color = "gray"
+        this.color = "coral"
         this.direction = 0;
         //this.bulletDirection = 0;
         this.collision = "none";

@@ -1,5 +1,5 @@
 class Player {
-    constructor(x, y) {
+    constructor(x, y, color = "white") {
         this.x = x;
         this.y = y;
         this.height = 50;
@@ -10,10 +10,13 @@ class Player {
         this.collision = "none";
         this.alive = true;
         this.exploding = false;
-        this.explodingFrame = 6;
+        this.explodingFrame = 7;
+        this.invis = false;
+        this.invisFrame = 6;
         this.lives = 3;
         this.score = 0;
         this.speed = 2.5;
+        this.color = color
     }
 
     update() {
@@ -63,7 +66,7 @@ class Player {
         if (player.alive && !player.exploding) {
             ctx.save();
             ctx.font = "30px Arial";
-            ctx.fillStyle = "white";
+            ctx.fillStyle = this.color;
             ctx.strokeStyle = "white";
             //ctx.fillRect(this.x, this.y, this.width, this.height);
             //ctx.strokeRect(this.x, this.y, this.width, this.height);
@@ -118,6 +121,30 @@ class Player {
             ctx.restore();
         }
         if (player.exploding) {
+            let counter = ""
+            switch (this.explodingFrame) {
+                case 6:
+                    counter = "IIIIII";
+                    break
+                case 5:
+                    counter = "IIIII";
+                    break
+                case 4:
+                    counter = "IIII";
+                    break
+                case 3:
+                    counter = "III";
+                    break
+                case 2:
+                    counter = "II";
+                    break
+                case 1:
+                    counter = "I";
+                    break
+                case 0:
+                    counter = "";
+                    break
+            }
             ctx.save();
             //ctx.strokeRect(this.x, this.y, this.width, this.height);
             ctx.font = "15px Arial";
@@ -135,7 +162,8 @@ class Player {
             ctx.save();
             ctx.font = "30px Arial";
             ctx.fillStyle = "orange";
-            ctx.fillText("IIIIII", this.x, this.y + 50);
+            ctx.fillText(counter, this.x, this.y + 50);
+
 
         }
 
@@ -160,74 +188,83 @@ class Player {
             this.explodingFrame = 6
         } */
     }
+
+    invincible() {
+        if (this.invis) {
+            this.invisFrame--
+            this.color = "gray"
+        }
+    }
     shoot() {
         //enemyBullet.getDirection();
-        let xPos = this.x;
-        let yPos = this.y;
-        let dir = this.direction;
-        let height = bullet.height;
-        let width = bullet.width;
-        let speed = 5
-        switch (this.direction) {
-            case 270:
-                //up
-                xPos = this.x + 17;
-                yPos = this.y - 50;
-                height = 45
-                width = 16
-                break
-            case 315:
-                //upright
-                xPos = this.x + 55;
-                yPos = this.y - 50;
-                height = 45
-                width = 30
-                break
-            case 0:
-                //left
-                xPos = this.x + 55;
-                yPos = this.y + 17;
-                height = 16
-                width = 45
-                break
-            case 45:
-                //downright
-                xPos = this.x + 55;
-                yPos = this.y + 55;
-                height = 45
-                width = 30
-                break
-            case 90:
-                //down
-                xPos = this.x + 17;
-                yPos = this.y + 55;
-                height = 45
-                width = 16
-                break
-            case 135:
-                //downleft
-                xPos = this.x - 34;
-                yPos = this.y + 55;
-                height = 45
-                width = 30
-                break
-            case 180:
-                //left
-                xPos = this.x - 50;
-                yPos = this.y + 17;
-                height = 16
-                width = 45
-                break
-            case 225:
-                //upleft
-                xPos = this.x - 34;
-                yPos = this.y - 50;
-                height = 45
-                width = 30
-                break
+        if (!player.exploding) {
+            let xPos = this.x;
+            let yPos = this.y;
+            let dir = this.direction;
+            let height = bullet.height;
+            let width = bullet.width;
+            let speed = 6
+            switch (this.direction) {
+                case 270:
+                    //up
+                    xPos = this.x + 17;
+                    yPos = this.y - 50;
+                    height = 45
+                    width = 16
+                    break
+                case 315:
+                    //upright
+                    xPos = this.x + 55;
+                    yPos = this.y - 50;
+                    height = 45
+                    width = 30
+                    break
+                case 0:
+                    //left
+                    xPos = this.x + 55;
+                    yPos = this.y + 17;
+                    height = 16
+                    width = 45
+                    break
+                case 45:
+                    //downright
+                    xPos = this.x + 55;
+                    yPos = this.y + 55;
+                    height = 45
+                    width = 30
+                    break
+                case 90:
+                    //down
+                    xPos = this.x + 17;
+                    yPos = this.y + 55;
+                    height = 45
+                    width = 16
+                    break
+                case 135:
+                    //downleft
+                    xPos = this.x - 34;
+                    yPos = this.y + 55;
+                    height = 45
+                    width = 30
+                    break
+                case 180:
+                    //left
+                    xPos = this.x - 50;
+                    yPos = this.y + 17;
+                    height = 16
+                    width = 45
+                    break
+                case 225:
+                    //upleft
+                    xPos = this.x - 34;
+                    yPos = this.y - 50;
+                    height = 45
+                    width = 30
+                    break
 
+            }
+            game.world.push(new Bullet(xPos, yPos, speed, dir, height, width));
         }
-        game.world.push(new Bullet(xPos, yPos, speed, dir, height, width));
     }
 }
 player = new Player(200, 300);

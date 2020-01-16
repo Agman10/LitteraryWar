@@ -6,6 +6,15 @@ class Game {
     start() {
         document.addEventListener("Space", () => {
             player.shoot();
+            /* for (let i in game.world) {
+                let bObj = game.world[i]
+                if (bObj.type == "bullet") {
+
+                    console.log(game.world[i])
+                }
+
+            } */
+
             //game.world[0].directionUpdate()
 
         });
@@ -26,67 +35,69 @@ class Game {
         setInterval(() => this.logic(), 1000 / 60);
         setInterval(() => this.enemyShoot(), 2500 / 1);
         setInterval(() => this.deathAnimation(), 1000 / 2);
+        setInterval(() => this.invincibleFrames(), 1000 / 2);
 
 
     }
 
     logic() {
-        if (keysDown[38] && player.y > 0 && player.collision != "up") {
-            //up
-            player.direction = 270
-            player.move()
-        }
-        if (keysDown[39] && player.x < 500 - player.width && player.collision != "right") {
-            //right
-            player.direction = 0
-            player.move()
-        }
-        if (keysDown[40] && player.y < 500 - player.height && player.collision != "down") {
-            //down
-            player.direction = 90
-            player.move()
-        }
-        if (keysDown[37] && player.x > 0 && player.collision != "left") {
-            //left
-            player.direction = 180
-            player.move()
-        }
+        if (!player.exploding) {
+            if (keysDown[38] && player.y > 0 && player.collision != "up") {
+                //up
+                player.direction = 270
+                player.move()
+            }
+            if (keysDown[39] && player.x < 500 - player.width && player.collision != "right") {
+                //right
+                player.direction = 0
+                player.move()
+            }
+            if (keysDown[40] && player.y < 500 - player.height && player.collision != "down") {
+                //down
+                player.direction = 90
+                player.move()
+            }
+            if (keysDown[37] && player.x > 0 && player.collision != "left") {
+                //left
+                player.direction = 180
+                player.move()
+            }
 
-        if (keysDown[38]) {
-            //up
-            player.direction = 270
-        }
-        if (keysDown[39]) {
-            //right
-            player.direction = 0
-        }
-        if (keysDown[40]) {
-            //down
-            player.direction = 90
-        }
-        if (keysDown[37]) {
-            //left
-            player.direction = 180
-        }
+            if (keysDown[38]) {
+                //up
+                player.direction = 270
+            }
+            if (keysDown[39]) {
+                //right
+                player.direction = 0
+            }
+            if (keysDown[40]) {
+                //down
+                player.direction = 90
+            }
+            if (keysDown[37]) {
+                //left
+                player.direction = 180
+            }
 
-        if (keysDown[38] && keysDown[39]) {
-            // up + right
-            player.direction = 315
-        }
-        else if (keysDown[39] && keysDown[40]) {
-            //right + down
-            player.direction = 45
-        }
-        if (keysDown[40] && keysDown[37]) {
-            //down + left
-            player.direction = 135
-        }
-        else if (keysDown[37] && keysDown[38]) {
-            //left + up
-            player.direction = 225
-        }
+            if (keysDown[38] && keysDown[39]) {
+                // up + right
+                player.direction = 315
+            }
+            else if (keysDown[39] && keysDown[40]) {
+                //right + down
+                player.direction = 45
+            }
+            if (keysDown[40] && keysDown[37]) {
+                //down + left
+                player.direction = 135
+            }
+            else if (keysDown[37] && keysDown[38]) {
+                //left + up
+                player.direction = 225
+            }
 
-
+        }
 
         /* if (player.x < wall.width - player.width &&
             player.y < wall.height - player.height) {
@@ -118,10 +129,10 @@ class Game {
                     if (player.x < eObj.x + eObj.width &&
                         player.x + player.width > eObj.x &&
                         player.y < eObj.y + eObj.height &&
-                        player.y + player.height > eObj.y) {
+                        player.y + player.height > eObj.y && !player.invis) {
                         game.world.splice(j, 1)
                         game.spawnEnemy();
-                        player.lives -= 1;
+                        if (!player.exploding) player.hit();
                     }
                 }
 
@@ -137,10 +148,11 @@ class Game {
                 if (player.x < bObj.x + bObj.width &&
                     player.x + player.width > bObj.x &&
                     player.y < bObj.y + bObj.height &&
-                    player.y + player.height > bObj.y) {
+                    player.y + player.height > bObj.y && !player.invis) {
                     //console.log("collision")
                     game.world.splice(i, 1)
-                    player.lives -= 1;
+                    if (!player.exploding) player.hit();
+
                 }
             }
             if (bObj.x < 0 - bObj.width ||
@@ -161,9 +173,25 @@ class Game {
         if (player.exploding == true) {
             player.explode();
         }
-        if (player.explodingFrame == 0) {
+        if (player.explodingFrame < 0) {
             player.exploding = false;
-            player.explodingFrame = 6;
+            player.explodingFrame = 7;
+            player.invis = true
+            player.x = 200;
+            player.y = 300;
+
+
+        }
+    }
+    invincibleFrames() {
+        if (player.invis == true) {
+            player.invincible();
+        }
+        if (player.invisFrame < 0) {
+            player.invis = false
+            player.invisFrame = 6;
+            player.color = "white"
+
         }
     }
     render() {
