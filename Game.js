@@ -34,8 +34,8 @@ class Game {
 
         setInterval(() => this.logic(), 1000 / 60);
         setInterval(() => this.enemyShoot(), 2500 / 1);
-        setInterval(() => this.deathAnimation(), 1000 / 2);
-        setInterval(() => this.invincibleFrames(), 1000 / 2);
+        setInterval(() => this.deathAnimation(), 1000 / 4);
+        setInterval(() => this.invincibleFrames(), 1000 / 4);
 
 
     }
@@ -99,15 +99,8 @@ class Game {
 
         }
 
-        /* if (player.x < wall.width - player.width &&
-            player.y < wall.height - player.height) {
-            console.log("test")
-        } */
-
         stars.update();
-        //enemy.update();
         player.update();
-        //game.world[0].getDirection()
         for (let obj of this.world) obj.update()
         for (let i in game.world) {
             let bObj = game.world[i]
@@ -115,25 +108,27 @@ class Game {
                 let eObj = game.world[j]
 
                 if (eObj.type == "shooter" || eObj.type == "enemy") {
+                    if (player.x < eObj.x + eObj.width &&
+                        player.x + player.width > eObj.x &&
+                        player.y < eObj.y + eObj.height &&
+                        player.y + player.height > eObj.y && !player.invis) {
+                        this.enemyDeath()
+                        game.spawnEnemy();
+                        if (!player.exploding) player.hit();
+                    }
                     if (bObj.type == "bullet") {
                         if (eObj.x < bObj.x + bObj.width &&
                             eObj.x + eObj.width > bObj.x &&
                             eObj.y < bObj.y + bObj.height &&
                             eObj.y + eObj.height > bObj.y) {
                             game.world.splice(i, 1)
-                            game.world.splice(j, 1)
+                            this.enemyDeath()
                             player.score += 1;
-                            game.spawnEnemy();
+                            //game.spawnEnemy()
+                            setTimeout(() => { game.spawnEnemy() }, 500);
                         }
                     }
-                    if (player.x < eObj.x + eObj.width &&
-                        player.x + player.width > eObj.x &&
-                        player.y < eObj.y + eObj.height &&
-                        player.y + player.height > eObj.y && !player.invis) {
-                        game.world.splice(j, 1)
-                        game.spawnEnemy();
-                        if (!player.exploding) player.hit();
-                    }
+
                 }
 
             }
@@ -163,11 +158,23 @@ class Game {
                 //console.log(this.bullets.length)
             }
         }
-
+        if (player.score > 10) {
+            this.spawnEnemy();
+        }
     }
 
     loop() {
         this.render();
+    }
+
+    enemyDeath() {
+        for (let i in game.world) {
+            let eObj = game.world[i]
+            if (eObj.type == "enemy" || eObj.type == "shooter") {
+                game.world.splice(i, 1)
+
+            }
+        }
     }
     deathAnimation() {
         if (player.exploding == true) {
@@ -189,7 +196,7 @@ class Game {
         }
         if (player.invisFrame < 0) {
             player.invis = false
-            player.invisFrame = 6;
+            player.invisFrame = 7;
             player.color = "white"
 
         }
@@ -228,7 +235,6 @@ class Game {
             }
         }
     }
-
     spawnEnemy(x, y) {
 
         let randomOffscreenPos = Math.floor(Math.random() * 4)
@@ -246,7 +252,7 @@ class Game {
                 y = -50
                 break
             case 3:
-                y = -50
+                y = 500
                 break
 
         }

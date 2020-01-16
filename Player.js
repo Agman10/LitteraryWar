@@ -12,7 +12,7 @@ class Player {
         this.exploding = false;
         this.explodingFrame = 7;
         this.invis = false;
-        this.invisFrame = 6;
+        this.invisFrame = 7;
         this.lives = 3;
         this.score = 0;
         this.speed = 2.5;
@@ -20,7 +20,9 @@ class Player {
     }
 
     update() {
-
+        /* if (player.score == 10) {
+            game.spawnEnemy();
+        } */
         if (this.x < wall.x + wall.width &&
             this.x + this.width > wall.x &&
             this.y + 10 > wall.y + wall.height &&
@@ -67,7 +69,7 @@ class Player {
             ctx.save();
             ctx.font = "30px Arial";
             ctx.fillStyle = this.color;
-            ctx.strokeStyle = "white";
+            ctx.strokeStyle = this.color;
             //ctx.fillRect(this.x, this.y, this.width, this.height);
             //ctx.strokeRect(this.x, this.y, this.width, this.height);
             ctx.fillText("S", this.x, this.y + 25);
@@ -119,9 +121,39 @@ class Player {
                 ctx.fillText("N", this.x - 8, this.y);
             }
             ctx.restore();
+
+            if (this.invis) {
+                let counter = ""
+                ctx.font = "10px Arial";
+                switch (this.invisFrame) {
+                    case 6:
+                        counter = "IIIIII";
+                        break
+                    case 5:
+                        counter = "IIIII";
+                        break
+                    case 4:
+                        counter = "IIII";
+                        break
+                    case 3:
+                        counter = "III";
+                        break
+                    case 2:
+                        counter = "II";
+                        break
+                    case 1:
+                        counter = "I";
+                        break
+                    case 0:
+                        counter = "";
+                        break
+                }
+                ctx.fillText(counter, this.x + 15, this.y);
+            }
         }
         if (player.exploding) {
             let counter = ""
+            player.color = "orange"
             switch (this.explodingFrame) {
                 case 6:
                     counter = "IIIIII";
@@ -148,22 +180,20 @@ class Player {
             ctx.save();
             //ctx.strokeRect(this.x, this.y, this.width, this.height);
             ctx.font = "15px Arial";
-            ctx.fillStyle = "orange";
-            ctx.strokeStyle = "white";
+            ctx.fillStyle = this.color;
             ctx.fillText("EXPLO", this.x, this.y + 12);
             ctx.restore();
 
             ctx.save();
             ctx.font = "19px Arial";
-            ctx.fillStyle = "orange";
+            ctx.fillStyle = this.color;
             ctx.fillText("SION", this.x + 1, this.y + 27);
             ctx.restore();
 
             ctx.save();
             ctx.font = "30px Arial";
-            ctx.fillStyle = "orange";
+            ctx.fillStyle = this.color;
             ctx.fillText(counter, this.x, this.y + 50);
-
 
         }
 
@@ -172,7 +202,6 @@ class Player {
     hit() {
         if (!this.exploding && this.alive) {
             this.lives -= 1;
-            //this.x = 112;
             this.exploding = true;
             this.explode()
         }
@@ -180,13 +209,8 @@ class Player {
 
     explode() {
         if (this.exploding) {
-            //this.exploding = true;
             this.explodingFrame--
-            //setInterval(() => this.explodingFrame--, 1000 / 1);
-        } /* if (this.explodingFrame == 0) {
-            this.exploding = false;
-            this.explodingFrame = 6
-        } */
+        }
     }
 
     invincible() {
@@ -203,7 +227,7 @@ class Player {
             let dir = this.direction;
             let height = bullet.height;
             let width = bullet.width;
-            let speed = 6
+            let speed = 5
             switch (this.direction) {
                 case 270:
                     //up
