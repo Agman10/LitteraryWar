@@ -57,6 +57,9 @@ class Player {
         ctx.restore();
         //console.log("player " + this.y)
 
+        if (this.lives < 0) {
+            this.alive = false
+        }
     }
     move() {
         this.x += Math.cos(this.direction / (180 / Math.PI)) * this.speed;
@@ -152,7 +155,7 @@ class Player {
                 ctx.fillText(counter, this.x + 15, this.y);
             }
         }
-        if (player.exploding) {
+        if (player.exploding && this.alive) {
             let counter = ""
             player.color = "orange"
             switch (this.explodingFrame) {
@@ -196,6 +199,20 @@ class Player {
             ctx.fillStyle = this.color;
             ctx.fillText(counter, this.x, this.y + 50);
 
+        }
+
+        if (!this.alive) {
+
+            ctx.font = "50px Arial";
+            ctx.fillStyle = "white";
+            ctx.fillText("Game Over", 120, 250);
+            ctx.save();
+            ctx.font = "30px Arial";
+            ctx.fillStyle = this.color;
+            ctx.fillText("D", this.x, this.y + 25);
+            ctx.fillText("E", this.x + 25, this.y + 25);
+            ctx.fillText("A", this.x + 5, this.y + 50);
+            ctx.fillText("D", this.x + 25, this.y + 50);
         }
 
     }

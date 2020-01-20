@@ -5,11 +5,10 @@ class Game {
 
     start() {
         document.addEventListener("Space", () => {
-            player.shoot();
+            if (player.alive) player.shoot();
             /* for (let i in game.world) {
                 let bObj = game.world[i]
                 if (bObj.type == "bullet") {
-
                     console.log(game.world[i])
                 }
 
@@ -41,7 +40,7 @@ class Game {
     }
 
     logic() {
-        if (!player.exploding) {
+        if (!player.exploding && player.alive) {
             if (keysDown[38] && player.y > 0 && player.collision != "up") {
                 //up
                 player.direction = 270
@@ -240,11 +239,13 @@ class Game {
         //console.log(Math.floor(Math.random() * 4))
     }
     enemyShoot() {
-        for (let i in game.world) {
-            let eObj = game.world[i]
-            if (eObj.type == "shooter") {
-                game.world[i].shoot();
+        if (player.alive) {
+            for (let i in game.world) {
+                let eObj = game.world[i]
+                if (eObj.type == "shooter") {
+                    game.world[i].shoot();
 
+                }
             }
         }
     }
