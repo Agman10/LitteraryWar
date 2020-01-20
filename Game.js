@@ -112,7 +112,7 @@ class Game {
                         player.x + player.width > eObj.x &&
                         player.y < eObj.y + eObj.height &&
                         player.y + player.height > eObj.y && !player.invis) {
-                        this.enemyDeath()
+                        game.world.splice(j, 1);
                         game.spawnEnemy();
                         if (!player.exploding) player.hit();
                     }
@@ -121,45 +121,40 @@ class Game {
                             eObj.x + eObj.width > bObj.x &&
                             eObj.y < bObj.y + bObj.height &&
                             eObj.y + eObj.height > bObj.y) {
-                            game.world.splice(i, 1)
-                            this.enemyDeath()
+
+                            game.world.splice(j, 1);
+                            this.removeBullet();
                             player.score += 1;
+                            player.uptoten += 1;
+                            this.addEnemy()
                             //game.spawnEnemy()
                             setTimeout(() => { game.spawnEnemy() }, 500);
                         }
                     }
-
                 }
-
             }
             if (bObj.type == "bullet" || bObj.type == "enemyBullet") {
                 if (bObj.x < wall.x + wall.width &&
                     bObj.x + bObj.width > wall.x &&
                     bObj.y < wall.y + wall.height &&
                     bObj.y + bObj.height > wall.y) {
-                    game.world.splice(i, 1)
+                    game.world.splice(i, 1);
                 }
-
                 if (player.x < bObj.x + bObj.width &&
                     player.x + player.width > bObj.x &&
                     player.y < bObj.y + bObj.height &&
                     player.y + player.height > bObj.y && !player.invis) {
                     //console.log("collision")
-                    game.world.splice(i, 1)
+                    game.world.splice(i, 1);
                     if (!player.exploding) player.hit();
-
                 }
             }
             if (bObj.x < 0 - bObj.width ||
                 bObj.x > canvas.width + bObj.width ||
                 bObj.y < 0 - bObj.height ||
                 bObj.y > canvas.height + bObj.height) {
-                game.world.splice(i, 1)
-                //console.log(this.bullets.length)
+                game.world.splice(i, 1);
             }
-        }
-        if (player.score > 10) {
-            this.spawnEnemy();
         }
     }
 
@@ -167,15 +162,33 @@ class Game {
         this.render();
     }
 
-    enemyDeath() {
+    removeBullet() {
         for (let i in game.world) {
-            let eObj = game.world[i]
-            if (eObj.type == "enemy" || eObj.type == "shooter") {
+            let bObj = game.world[i]
+            if (bObj.type == "bullet") {
                 game.world.splice(i, 1)
-
             }
         }
     }
+    addEnemy() {
+        if (player.uptoten == 10) {
+            player.uptoten = 0
+            game.spawnEnemy()
+        }
+        /* switch (player.score) {
+            case 10:
+                game.spawnEnemy()
+                break
+            case 20:
+                game.spawnEnemy()
+                break
+            case 30:
+                game.spawnEnemy()
+                break
+
+        } */
+    }
+
     deathAnimation() {
         if (player.exploding == true) {
             player.explode();

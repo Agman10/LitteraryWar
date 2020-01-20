@@ -15,6 +15,7 @@ class Player {
         this.invisFrame = 7;
         this.lives = 3;
         this.score = 0;
+        this.uptoten = 0;
         this.speed = 2.5;
         this.color = color
     }
