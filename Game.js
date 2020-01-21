@@ -4,19 +4,10 @@ class Game {
     }
 
     start() {
-        document.addEventListener("Space", () => {
+        /* document.addEventListener("Space", () => {
             if (player.alive) player.shoot();
-            /* for (let i in game.world) {
-                let bObj = game.world[i]
-                if (bObj.type == "bullet") {
-                    console.log(game.world[i])
-                }
 
-            } */
-
-            //game.world[0].directionUpdate()
-
-        });
+        }); */
         document.addEventListener("KeyA", () => {
 
             for (let i in game.world) {
@@ -41,6 +32,9 @@ class Game {
 
     logic() {
         if (!player.exploding && player.alive) {
+            if (keysDown[32]) {
+                player.shoot();
+            }
             if (keysDown[38] && player.y > 0 && player.collision != "up") {
                 //up
                 player.direction = 270

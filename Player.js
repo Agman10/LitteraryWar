@@ -18,6 +18,7 @@ class Player {
         this.uptoten = 0;
         this.speed = 2.5;
         this.color = color
+        this.weaponCooldown = 0;
     }
 
     update() {
@@ -60,6 +61,8 @@ class Player {
         if (this.lives < 0) {
             this.alive = false
         }
+
+        this.weaponCooldown--;
     }
     move() {
         this.x += Math.cos(this.direction / (180 / Math.PI)) * this.speed;
@@ -237,15 +240,17 @@ class Player {
             this.color = "gray"
         }
     }
+
     shoot() {
         //enemyBullet.getDirection();
-        if (!player.exploding) {
+        if (!player.exploding && this.weaponCooldown <= 0) {
             let xPos = this.x;
             let yPos = this.y;
             let dir = this.direction;
             let height = bullet.height;
             let width = bullet.width;
             let speed = 5
+            this.weaponCooldown = 30;
             switch (this.direction) {
                 case 270:
                     //up
