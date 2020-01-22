@@ -9,13 +9,13 @@ class Game {
 
         }); */
         document.addEventListener("KeyA", () => {
-
-            for (let i in game.world) {
+            player.powerUpShoot();
+            /* for (let i in game.world) {
                 let eObj = game.world[i]
                 if (eObj.type == "shooter") {
                     game.world[i].shoot()
                 }
-            }
+            } */
             //game.world[0].getDirection()
 
         });

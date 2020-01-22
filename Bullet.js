@@ -44,6 +44,7 @@ class Bullet {
             ctx.fillText("A", this.x + 8, this.y + 29);
             ctx.fillText("P", this.x + 8, this.y + 44);
         } if (this.dir == 0 || this.dir == 180) {
+            //ctx.rotate((Math.PI / 180) * 45);
             ctx.fillText("Z", this.x + 2, this.y + 15);
             ctx.fillText("A", this.x + 17, this.y + 15);
             ctx.fillText("P", this.x + 32, this.y + 15);
@@ -53,6 +54,15 @@ class Bullet {
             ctx.fillText("A", this.x + 8, this.y + 29);
             ctx.fillText("P", this.x + 16, this.y + 14);
         } if (this.dir == 45) {
+            //ctx.translate(this.x, this.y)
+            /* ctx.translate(this.x, this.y);
+            ctx.rotate(Math.PI / 2);
+            ctx.translate(this.x, this.y);
+            ctx.fillText("ZAP", this.x, this.y); */
+            /* ctx.fillText("Z", this.x + 2, this.y + 15);
+            ctx.fillText("A", this.x + 17, this.y + 15);
+            ctx.fillText("P", this.x + 32, this.y + 15); */
+            //ctx.strokeRect(this.x, this.y, this.width, this.height)
             ctx.fillText("Z", this.x, this.y + 14);
             ctx.fillText("A", this.x + 8, this.y + 28);
             ctx.fillText("P", this.x + 16, this.y + 44);
