@@ -17,7 +17,8 @@ class Player {
         this.score = 0;
         this.uptoten = 0;
         this.speed = 2.5;
-        this.color = color
+        this.color = color;
+        this.cooldownSpeed = 30;
         this.weaponCooldown = 0;
         this.powerUp = 50;
     }
@@ -253,7 +254,7 @@ class Player {
             let height = bullet.height;
             let width = bullet.width;
             let speed = 5
-            this.weaponCooldown = 30;
+            this.weaponCooldown = this.cooldownSpeed;
             switch (this.direction) {
                 case 270:
                     //up
