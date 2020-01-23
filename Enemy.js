@@ -1,5 +1,5 @@
 class Enemy {
-    constructor(x = (Math.floor(Math.random() * 50)) * 10, y = (Math.floor(Math.random() * 50)) * 10, moveSpeed = 1, wallCollision = "none", color = "white") {
+    constructor(x = (Math.floor(Math.random() * 50)) * 10, y = (Math.floor(Math.random() * 50)) * 10, moveSpeed = 1, wallCollision = "none", color = "white", invis = true) {
         this.x = x;
         this.y = y;
         this.height = 50;
@@ -12,11 +12,13 @@ class Enemy {
         //this.randomOffscreenPos = randomOffscreenPos;
         this.color = color
         this.type = "enemy"
+        this.invis = invis;
+        this.invisFrame = 50;
 
     }
 
     update() {
-        if (player.alive) {
+        if (player.alive && this.invis == false) {
 
             if (player.x > this.x && this.wallCollision != "right") {
                 this.xSpeed = this.moveSpeed;
@@ -83,6 +85,16 @@ class Enemy {
 
             this.move(this.xSpeed, this.ySpeed)
             //console.log(this.y)
+
+
+        }
+        if (this.invis) {
+            this.invisFrame--
+            this.color = "green"
+        } if (this.invisFrame == 0) {
+            this.invis = false;
+            //this.invisFrame = 200
+            this.color = "white"
         }
     }
 
@@ -92,8 +104,13 @@ class Enemy {
     }
 
     draw() {
+
         ctx.save();
+        /* if (this.invis) {
+            ctx.fillStyle = "green";
+        } */
         ctx.font = "20px Arial";
+        //if (!this.invis) ctx.fillStyle = this.color;
         ctx.fillStyle = this.color;
         ctx.strokeStyle = "white";
         //ctx.strokeRect(this.x, this.y, this.width, this.height);
@@ -103,6 +120,7 @@ class Enemy {
         ctx.fillText("MY", this.x + 2, this.y + 50);
         ctx.restore();
         ctx.restore();
+
     }
 }
 

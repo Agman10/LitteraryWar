@@ -56,6 +56,8 @@ class Player {
         ctx.font = "15px Arial";
         ctx.fillText("Lives: " + this.lives, 5, 15);
         ctx.fillText("Score: " + this.score, 5, 30);
+        ctx.fillText("power Ups: " + this.powerUp, 5, 45);
+
         ctx.restore();
         //console.log("player " + this.y)
 
@@ -313,81 +315,6 @@ class Player {
             }
             game.world.push(new Bullet(xPos, yPos, speed, dir, height, width));
         }
-    }
-
-    powerUpShoot() {
-        if (!player.exploding && this.powerUp > 0) {
-            let xPos = this.x;
-            let yPos = this.y;
-            let dir = this.direction;
-            let height = bullet.height;
-            let width = bullet.width;
-            let speed = 5
-            this.weaponCooldown = 30;
-            switch (this.direction) {
-                case 270:
-                    //up
-                    xPos = this.x + 17;
-                    yPos = this.y - 50;
-                    height = 45
-                    width = 16
-                    break
-                case 315:
-                    //upright
-                    xPos = this.x + 55;
-                    yPos = this.y - 50;
-                    height = 45
-                    width = 30
-                    break
-                case 0:
-                    //left
-                    xPos = this.x + 55;
-                    yPos = this.y + 17;
-                    height = 16
-                    width = 45
-                    break
-                case 45:
-                    //downright
-                    xPos = this.x + 55;
-                    yPos = this.y + 55;
-                    height = 45
-                    width = 30
-                    break
-                case 90:
-                    //down
-                    xPos = this.x + 17;
-                    yPos = this.y + 55;
-                    height = 45
-                    width = 16
-                    break
-                case 135:
-                    //downleft
-                    xPos = this.x - 34;
-                    yPos = this.y + 55;
-                    height = 45
-                    width = 30
-                    break
-                case 180:
-                    //left
-                    xPos = this.x - 50;
-                    yPos = this.y + 17;
-                    height = 16
-                    width = 45
-                    break
-                case 225:
-                    //upleft
-                    xPos = this.x - 34;
-                    yPos = this.y - 50;
-                    height = 45
-                    width = 30
-                    break
-
-            }
-            game.world.push(new Bullet(xPos, yPos, speed, dir, height, width));
-            game.world.push(new Bullet(xPos + 10, yPos + 20, speed, dir - 45, height, width));
-            game.world.push(new Bullet(xPos - 15, yPos + 20, speed, dir + 45, height, width));
-        }
-        this.powerUp--
     }
 }
 player = new Player(200, 300);

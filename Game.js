@@ -4,12 +4,8 @@ class Game {
     }
 
     start() {
-        /* document.addEventListener("Space", () => {
-            if (player.alive) player.shoot();
-
-        }); */
         document.addEventListener("KeyA", () => {
-            player.powerUpShoot();
+            powerUp.shoot();
             /* for (let i in game.world) {
                 let eObj = game.world[i]
                 if (eObj.type == "shooter") {
@@ -113,15 +109,18 @@ class Game {
                         if (eObj.x < bObj.x + bObj.width &&
                             eObj.x + eObj.width > bObj.x &&
                             eObj.y < bObj.y + bObj.height &&
-                            eObj.y + eObj.height > bObj.y) {
-
+                            eObj.y + eObj.height > bObj.y && !eObj.invis) {
+                            game.world.splice(i, 1);
                             game.world.splice(j, 1);
-                            this.removeBullet();
+                            //this.removeBullet();
                             player.score += 1;
                             player.uptoten += 1;
+
                             this.addEnemy()
                             //game.spawnEnemy()
-                            setTimeout(() => { game.spawnEnemy() }, 500);
+                            //setTimeout(() => { game.spawnEnemy() }, 500);
+                            game.spawnEnemy()
+
                         }
                     }
                 }
@@ -155,31 +154,11 @@ class Game {
         this.render();
     }
 
-    removeBullet() {
-        for (let i in game.world) {
-            let bObj = game.world[i]
-            if (bObj.type == "bullet") {
-                game.world.splice(i, 1)
-            }
-        }
-    }
     addEnemy() {
         if (player.uptoten == 10) {
             player.uptoten = 0
             game.spawnEnemy()
         }
-        /* switch (player.score) {
-            case 10:
-                game.spawnEnemy()
-                break
-            case 20:
-                game.spawnEnemy()
-                break
-            case 30:
-                game.spawnEnemy()
-                break
-
-        } */
     }
 
     deathAnimation() {
@@ -196,6 +175,25 @@ class Game {
 
         }
     }
+    /* enemyInvincibleFrames() {
+        for (let j in game.world) {
+            let eObj = game.world[j]
+
+            if (eObj.type == "shooter" || eObj.type == "enemy") {
+
+
+            }
+            if (eObj.invis == true) {
+                eObj.invincible();
+            }
+            if (eObj.invisFrame < 0) {
+                eObj.invis = false
+                eObj.invisFrame = 7;
+                eObj.color = "white"
+
+            }
+        }
+    } */
     invincibleFrames() {
         if (player.invis == true) {
             player.invincible();
@@ -218,19 +216,8 @@ class Game {
             bullet.draw();
             bullet.update();
         });
-
-        //enemy.draw();
-        /* enemy.enemies.forEach(enemy => {
-            enemy.draw();
-            enemy.update();
-        }); */
         for (let obj of this.world) obj.draw()
         wall.draw();
-        //console.log(Math.floor(Math.random() * 4))
-        //enemy.push();
-        //console.log(player.collision)
-        //console.log((Math.floor(Math.random() * 50)) * 10)
-        //console.log(Math.floor(Math.random() * 4))
     }
     enemyShoot() {
         if (player.alive) {
@@ -273,7 +260,13 @@ class Game {
                 break
         }
         this.world.push(new enemy(x, y));
-        //console.log(randomEnemyType)
-        //console.log(randomOffscreenPos)
+        /* for (let j in game.world) {
+            let eObj = game.world[j]
+
+            if (eObj.type == "shooter" || eObj.type == "enemy") {
+                eObj.invis = true;
+                //setInterval(() => eObj.invis = false, 1000 / 1);
+            }
+        } */
     }
 }
