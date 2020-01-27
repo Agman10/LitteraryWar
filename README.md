@@ -7,3 +7,5 @@
 2020-01-13: code has been changed so it's easier to add multiple types of a class like different types of bullets or enemies. Currently working on enemy shooting direction
 
 2020-01-20: fixed a glitch that made more than one enemy to dissapear when it get hit, every time player gets 10 points an other enemy appears, game over screen is added
+
+2020-01-27: power ups that randomly drops from enemies has been added but drop rates and amount of ammo you get may need to be changed. reset button has also been added
