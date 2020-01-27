@@ -18,6 +18,7 @@ class Enemy {
     }
 
     update() {
+        //this.powerUpDrop()
         if (player.alive && this.invis == false) {
 
             if (player.x > this.x && this.wallCollision != "right") {
@@ -90,17 +91,24 @@ class Enemy {
         }
         if (this.invis) {
             this.invisFrame--
-            this.color = "green"
+            //this.color = "green"
         } if (this.invisFrame == 0) {
             this.invis = false;
             //this.invisFrame = 200
-            this.color = "white"
+            //this.color = "white"
         }
     }
 
     move(x, y) {
         this.x += x;
         this.y += y;
+    }
+
+    powerUpDrop() {
+        let random = (Math.floor(Math.random() * 10))
+        if (random == 0) game.world.push(new PowerUpDrop(this.x + 12, this.y + 10));
+        if (random == 1) game.world.push(new BulletCooldown(this.x + 12, this.y + 10));
+
     }
 
     draw() {
@@ -122,6 +130,8 @@ class Enemy {
         ctx.restore();
 
     }
+
+
 }
 
 

@@ -4,7 +4,7 @@ class Game {
     }
 
     start() {
-        document.addEventListener("KeyA", () => {
+        document.addEventListener("KeyX", () => {
             powerUp.shoot();
             /* for (let i in game.world) {
                 let eObj = game.world[i]
@@ -15,6 +15,10 @@ class Game {
             //game.world[0].getDirection()
 
         });
+        document.addEventListener("KeyR", () => {
+            if (!player.alive) this.reset()
+        });
+
         this.spawnEnemy();
         setInterval(() => this.loop(), 1000 / 60);
 
@@ -24,6 +28,10 @@ class Game {
         setInterval(() => this.invincibleFrames(), 1000 / 4);
 
 
+    }
+
+    reset() {
+        location.reload();
     }
 
     logic() {
@@ -90,11 +98,14 @@ class Game {
 
         stars.update();
         player.update();
+        powerUpDrop.update()
         for (let obj of this.world) obj.update()
         for (let i in game.world) {
             let bObj = game.world[i]
             for (let j in game.world) {
                 let eObj = game.world[j]
+
+
 
                 if (eObj.type == "shooter" || eObj.type == "enemy") {
                     if (player.x < eObj.x + eObj.width &&
@@ -110,8 +121,10 @@ class Game {
                             eObj.x + eObj.width > bObj.x &&
                             eObj.y < bObj.y + bObj.height &&
                             eObj.y + eObj.height > bObj.y && !eObj.invis) {
+
                             game.world.splice(i, 1);
                             game.world.splice(j, 1);
+                            eObj.powerUpDrop()
                             //this.removeBullet();
                             player.score += 1;
                             player.uptoten += 1;
@@ -121,6 +134,18 @@ class Game {
                             //setTimeout(() => { game.spawnEnemy() }, 500);
                             game.spawnEnemy()
 
+                        }
+                    }
+                    for (let l in game.world) {
+                        let pObj = game.world[l]
+                        if (pObj.type == "spread" || pObj.type == "cooldown") {
+                            if (player.x < pObj.x + pObj.width &&
+                                player.x + player.width > pObj.x &&
+                                player.y < pObj.y + pObj.height &&
+                                player.y + player.height > pObj.y) {
+                                game.world.splice(l, 1);
+                                pObj.pickUp()
+                            }
                         }
                     }
                 }
@@ -178,10 +203,10 @@ class Game {
     /* enemyInvincibleFrames() {
         for (let j in game.world) {
             let eObj = game.world[j]
-
+ 
             if (eObj.type == "shooter" || eObj.type == "enemy") {
-
-
+ 
+ 
             }
             if (eObj.invis == true) {
                 eObj.invincible();
@@ -190,7 +215,7 @@ class Game {
                 eObj.invis = false
                 eObj.invisFrame = 7;
                 eObj.color = "white"
-
+ 
             }
         }
     } */
@@ -211,6 +236,7 @@ class Game {
             stars.draw();
             stars.update();
         });
+        //powerUpDrop.draw()
         player.draw()
         player.bullets.forEach(bullet => {
             bullet.draw();
@@ -262,7 +288,7 @@ class Game {
         this.world.push(new enemy(x, y));
         /* for (let j in game.world) {
             let eObj = game.world[j]
-
+ 
             if (eObj.type == "shooter" || eObj.type == "enemy") {
                 eObj.invis = true;
                 //setInterval(() => eObj.invis = false, 1000 / 1);

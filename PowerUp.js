@@ -1,6 +1,5 @@
 class PowerUp {
     constructor() {
-
     }
     shoot() {
         if (!player.exploding && player.powerUp > 0 && player.alive) {

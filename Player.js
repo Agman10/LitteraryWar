@@ -20,7 +20,9 @@ class Player {
         this.color = color;
         this.cooldownSpeed = 30;
         this.weaponCooldown = 0;
-        this.powerUp = 50;
+        this.powerUp = 0;
+        this.cooldownPowerup = 0;
+        this.health = 2;
     }
 
     update() {
@@ -54,10 +56,12 @@ class Player {
 
         else this.collision = "none"
         ctx.save();
+        ctx.fillStyle = "white";
         ctx.font = "15px Arial";
         ctx.fillText("Lives: " + this.lives, 5, 15);
         ctx.fillText("Score: " + this.score, 5, 30);
-        ctx.fillText("power Ups: " + this.powerUp, 5, 45);
+        ctx.fillText("Spread: " + this.powerUp, 5, 45);
+        ctx.fillText("Fire Rate: " + this.cooldownPowerup, 5, 60);
 
         ctx.restore();
         //console.log("player " + this.y)
@@ -214,6 +218,9 @@ class Player {
             ctx.fillStyle = "white";
             ctx.fillText("Game Over", 120, 250);
             ctx.save();
+            ctx.font = "20px Arial";
+            ctx.fillText("Press R to restart", 170, 270);
+            ctx.save();
             ctx.font = "30px Arial";
             ctx.fillStyle = this.color;
             ctx.fillText("D", this.x, this.y + 25);
@@ -226,9 +233,18 @@ class Player {
 
     hit() {
         if (!this.exploding && this.alive) {
+            /* if (this.health > 0) {
+                //this.invis = true
+                //this.invincible()
+                this.health--
+
+            } */
+            //if (this.health == 0) {
             this.lives -= 1;
             this.exploding = true;
             this.explode()
+            this.health = 2;
+            //}
         }
     }
 
