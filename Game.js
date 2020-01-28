@@ -6,28 +6,16 @@ class Game {
     start() {
         document.addEventListener("KeyX", () => {
             powerUp.shoot();
-            /* for (let i in game.world) {
-                let eObj = game.world[i]
-                if (eObj.type == "shooter") {
-                    game.world[i].shoot()
-                }
-            } */
-            //game.world[0].getDirection()
-
         });
         document.addEventListener("KeyR", () => {
             if (!player.alive) this.reset()
         });
-
         this.spawnEnemy();
         setInterval(() => this.loop(), 1000 / 60);
-
         setInterval(() => this.logic(), 1000 / 60);
         setInterval(() => this.enemyShoot(), 2500 / 1);
         setInterval(() => this.deathAnimation(), 1000 / 4);
         setInterval(() => this.invincibleFrames(), 1000 / 4);
-
-
     }
 
     reset() {
@@ -99,13 +87,12 @@ class Game {
         stars.update();
         player.update();
         powerUpDrop.update()
+        wall.update()
         for (let obj of this.world) obj.update()
         for (let i in game.world) {
             let bObj = game.world[i]
             for (let j in game.world) {
                 let eObj = game.world[j]
-
-
 
                 if (eObj.type == "shooter" || eObj.type == "enemy") {
                     if (player.x < eObj.x + eObj.width &&
@@ -121,19 +108,13 @@ class Game {
                             eObj.x + eObj.width > bObj.x &&
                             eObj.y < bObj.y + bObj.height &&
                             eObj.y + eObj.height > bObj.y && !eObj.invis) {
-
                             game.world.splice(i, 1);
                             game.world.splice(j, 1);
                             eObj.powerUpDrop()
-                            //this.removeBullet();
                             player.score += 1;
                             player.uptoten += 1;
-
                             this.addEnemy()
-                            //game.spawnEnemy()
-                            //setTimeout(() => { game.spawnEnemy() }, 500);
                             game.spawnEnemy()
-
                         }
                     }
                     for (let l in game.world) {
@@ -150,6 +131,9 @@ class Game {
                     }
                 }
             }
+            /* for (let l in game.world) {
+                let wall = game.world[l]
+                if (wall.type == "wall") { */
             if (bObj.type == "bullet" || bObj.type == "enemyBullet") {
                 if (bObj.x < wall.x + wall.width &&
                     bObj.x + bObj.width > wall.x &&
@@ -157,20 +141,23 @@ class Game {
                     bObj.y + bObj.height > wall.y) {
                     game.world.splice(i, 1);
                 }
+
+                //}
+                //}
                 if (player.x < bObj.x + bObj.width &&
                     player.x + player.width > bObj.x &&
                     player.y < bObj.y + bObj.height &&
                     player.y + player.height > bObj.y && !player.invis) {
-                    //console.log("collision")
                     game.world.splice(i, 1);
                     if (!player.exploding) player.hit();
                 }
-            }
-            if (bObj.x < 0 - bObj.width ||
-                bObj.x > canvas.width + bObj.width ||
-                bObj.y < 0 - bObj.height ||
-                bObj.y > canvas.height + bObj.height) {
-                game.world.splice(i, 1);
+
+                if (bObj.x < 0 - bObj.width ||
+                    bObj.x > canvas.width + bObj.width ||
+                    bObj.y < 0 - bObj.height ||
+                    bObj.y > canvas.height + bObj.height) {
+                    game.world.splice(i, 1);
+                }
             }
         }
     }
@@ -196,29 +183,9 @@ class Game {
             player.invis = true
             player.x = 200;
             player.y = 300;
-
-
         }
     }
-    /* enemyInvincibleFrames() {
-        for (let j in game.world) {
-            let eObj = game.world[j]
- 
-            if (eObj.type == "shooter" || eObj.type == "enemy") {
- 
- 
-            }
-            if (eObj.invis == true) {
-                eObj.invincible();
-            }
-            if (eObj.invisFrame < 0) {
-                eObj.invis = false
-                eObj.invisFrame = 7;
-                eObj.color = "white"
- 
-            }
-        }
-    } */
+
     invincibleFrames() {
         if (player.invis == true) {
             player.invincible();
@@ -236,14 +203,16 @@ class Game {
             stars.draw();
             stars.update();
         });
-        //powerUpDrop.draw()
         player.draw()
         player.bullets.forEach(bullet => {
             bullet.draw();
             bullet.update();
         });
+        wall.draw()
+
         for (let obj of this.world) obj.draw()
-        wall.draw();
+
+
     }
     enemyShoot() {
         if (player.alive) {
@@ -251,17 +220,15 @@ class Game {
                 let eObj = game.world[i]
                 if (eObj.type == "shooter") {
                     game.world[i].shoot();
-
                 }
             }
         }
     }
-    spawnEnemy(x, y) {
 
+    spawnEnemy(x, y) {
         let randomOffscreenPos = Math.floor(Math.random() * 4)
         let randomEnemyType = Math.floor(Math.random() * 2)
         let enemy = Enemy;
-
         switch (randomOffscreenPos) {
             case 0:
                 x = -50
@@ -285,14 +252,7 @@ class Game {
                 enemy = ShootingEnemy;
                 break
         }
+
         this.world.push(new enemy(x, y));
-        /* for (let j in game.world) {
-            let eObj = game.world[j]
- 
-            if (eObj.type == "shooter" || eObj.type == "enemy") {
-                eObj.invis = true;
-                //setInterval(() => eObj.invis = false, 1000 / 1);
-            }
-        } */
     }
 }

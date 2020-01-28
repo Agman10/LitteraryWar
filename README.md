@@ -9,3 +9,5 @@
 2020-01-20: fixed a glitch that made more than one enemy to dissapear when it get hit, every time player gets 10 points an other enemy appears, game over screen is added
 
 2020-01-27: power ups that randomly drops from enemies has been added but drop rates and amount of ammo you get may need to be changed. reset button has also been added
+
+2020-01-28: tried to add multiple walls at the same time but i couldn't make it work today, but walls now spawn in different sizes and in different angles

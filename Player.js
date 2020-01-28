@@ -26,9 +26,10 @@ class Player {
     }
 
     update() {
-        /* if (player.score == 10) {
-            game.spawnEnemy();
-        } */
+        /* for (let i in game.world) {
+            let wall = game.world[i]
+            if (wall.type == "wall") { */
+
         if (this.x < wall.x + wall.width &&
             this.x + this.width > wall.x &&
             this.y + 10 > wall.y + wall.height &&
@@ -55,6 +56,8 @@ class Player {
         }
 
         else this.collision = "none"
+        //}
+        //}
         ctx.save();
         ctx.fillStyle = "white";
         ctx.font = "15px Arial";
@@ -64,7 +67,6 @@ class Player {
         ctx.fillText("Fire Rate: " + this.cooldownPowerup, 5, 60);
 
         ctx.restore();
-        //console.log("player " + this.y)
 
         if (this.lives < 0) {
             this.alive = false
@@ -75,9 +77,6 @@ class Player {
     move() {
         this.x += Math.cos(this.direction / (180 / Math.PI)) * this.speed;
         this.y += Math.sin(this.direction / (180 / Math.PI)) * this.speed;
-        /* this.x += x;
-        this.y += y; */
-        //console.log(this.x + " " + this.y)
     }
     draw() {
         if (player.alive && !player.exploding) {

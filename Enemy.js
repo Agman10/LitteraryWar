@@ -18,7 +18,9 @@ class Enemy {
     }
 
     update() {
-        //this.powerUpDrop()
+        /* for (let i in game.world) {
+            let wall = game.world[i]
+            if (wall.type == "wall") { */
         if (player.alive && this.invis == false) {
 
             if (player.x > this.x && this.wallCollision != "right") {
@@ -33,6 +35,10 @@ class Enemy {
                 this.ySpeed = -this.moveSpeed;
             } else this.ySpeed = 0;
 
+
+            /* for (let i in game.world) {
+                let wall = game.world[i]
+                if (wall.type == "wall") { */
             if (this.x < wall.x + wall.width &&
                 this.x + this.width > wall.x &&
                 this.y + 10 > wall.y + wall.height &&
@@ -77,25 +83,19 @@ class Enemy {
                     this.ySpeed = -this.moveSpeed;
                 }
             }
-
             else this.wallCollision = "none"
-
-            //console.log(this.x, this.y)
-            //console.log(this.wallCollision)
-
+            //}
+            //}
 
             this.move(this.xSpeed, this.ySpeed)
-            //console.log(this.y)
 
-
+            //}
+            //}
         }
         if (this.invis) {
             this.invisFrame--
-            //this.color = "green"
         } if (this.invisFrame == 0) {
             this.invis = false;
-            //this.invisFrame = 200
-            //this.color = "white"
         }
     }
 
