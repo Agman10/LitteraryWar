@@ -1,25 +1,52 @@
 class Game {
     constructor() {
         this.world = [];
+        this.paused = false;
     }
 
     start() {
+
         document.addEventListener("KeyX", () => {
             powerUp.shoot();
         });
         document.addEventListener("KeyR", () => {
-            if (!player.alive) this.reset()
+            if (!player.alive || this.paused) this.reset()
+        });
+        document.addEventListener("Enter", () => {
+            if (player.alive) this.pause();
         });
         this.spawnEnemy();
         setInterval(() => this.loop(), 1000 / 60);
-        setInterval(() => this.logic(), 1000 / 60);
-        setInterval(() => this.enemyShoot(), 2500 / 1);
-        setInterval(() => this.deathAnimation(), 1000 / 4);
-        setInterval(() => this.invincibleFrames(), 1000 / 4);
-    }
 
+    }
+    loop() {
+        if (!this.paused) {
+            this.render();
+            this.logic();
+            this.deathAnimation()
+            this.invincibleFrames()
+            this.enemyShoot()
+        }
+    }
     reset() {
         location.reload();
+    }
+    pause() {
+        if (!this.paused) {
+            this.paused = true
+            ctx.font = "50px Arial";
+            ctx.fillStyle = "white";
+            ctx.fillText("Paused", 160, 250);
+            ctx.save();
+            ctx.font = "15px Arial";
+            ctx.fillStyle = "white";
+            ctx.fillText("Controlls:", 5, 400);
+            ctx.fillText("Move: Arrow keys", 5, 420);
+            ctx.fillText("Shoot: Space", 5, 440);
+            ctx.fillText("Spread power up: X", 5, 460);
+            ctx.fillText("Reset: R (while paused or on game over)", 5, 480);
+        }
+        else if (this.paused) this.paused = false
     }
 
     logic() {
@@ -162,9 +189,7 @@ class Game {
         }
     }
 
-    loop() {
-        this.render();
-    }
+
 
     addEnemy() {
         if (player.uptoten == 10) {
@@ -179,7 +204,7 @@ class Game {
         }
         if (player.explodingFrame < 0) {
             player.exploding = false;
-            player.explodingFrame = 7;
+            player.explodingFrame = 105;
             player.invis = true
             player.x = 200;
             player.y = 300;
@@ -192,7 +217,7 @@ class Game {
         }
         if (player.invisFrame < 0) {
             player.invis = false
-            player.invisFrame = 7;
+            player.invisFrame = 105;
             player.color = "white"
 
         }
@@ -218,8 +243,12 @@ class Game {
         if (player.alive) {
             for (let i in game.world) {
                 let eObj = game.world[i]
-                if (eObj.type == "shooter") {
-                    game.world[i].shoot();
+                if (eObj.shootingFrame == 250) {
+                    eObj.shootingFrame = 0;
+                    if (eObj.type == "shooter") {
+                        eObj.shoot();
+
+                    }
                 }
             }
         }

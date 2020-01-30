@@ -14,10 +14,12 @@ class Enemy {
         this.type = "enemy"
         this.invis = invis;
         this.invisFrame = 50;
+        this.shootingFrame = 0;
 
     }
 
     update() {
+        this.shootingFrame++
         /* for (let i in game.world) {
             let wall = game.world[i]
             if (wall.type == "wall") { */

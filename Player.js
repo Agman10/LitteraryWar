@@ -10,9 +10,9 @@ class Player {
         this.collision = "none";
         this.alive = true;
         this.exploding = false;
-        this.explodingFrame = 7;
+        this.explodingFrame = 105;
         this.invis = false;
-        this.invisFrame = 7;
+        this.invisFrame = 105;
         this.lives = 3;
         this.score = 0;
         this.uptoten = 0;
@@ -137,60 +137,18 @@ class Player {
             ctx.restore();
 
             if (this.invis) {
-                let counter = ""
+                let counter = "IIIIII"
+                let counterState = Math.floor(this.invisFrame / (105 / counter.length))
                 ctx.font = "10px Arial";
-                switch (this.invisFrame) {
-                    case 6:
-                        counter = "IIIIII";
-                        break
-                    case 5:
-                        counter = "IIIII";
-                        break
-                    case 4:
-                        counter = "IIII";
-                        break
-                    case 3:
-                        counter = "III";
-                        break
-                    case 2:
-                        counter = "II";
-                        break
-                    case 1:
-                        counter = "I";
-                        break
-                    case 0:
-                        counter = "";
-                        break
-                }
-                ctx.fillText(counter, this.x + 15, this.y);
+
+                ctx.fillText(counter.substring(0, counterState), this.x + 15, this.y);
             }
         }
         if (player.exploding && this.alive) {
-            let counter = ""
+            let counter = "IIIIII"
+            let counterState = Math.floor(this.explodingFrame / (105 / counter.length))
             player.color = "orange"
-            switch (this.explodingFrame) {
-                case 6:
-                    counter = "IIIIII";
-                    break
-                case 5:
-                    counter = "IIIII";
-                    break
-                case 4:
-                    counter = "IIII";
-                    break
-                case 3:
-                    counter = "III";
-                    break
-                case 2:
-                    counter = "II";
-                    break
-                case 1:
-                    counter = "I";
-                    break
-                case 0:
-                    counter = "";
-                    break
-            }
+
             ctx.save();
             //ctx.strokeRect(this.x, this.y, this.width, this.height);
             ctx.font = "15px Arial";
@@ -207,7 +165,7 @@ class Player {
             ctx.save();
             ctx.font = "30px Arial";
             ctx.fillStyle = this.color;
-            ctx.fillText(counter, this.x, this.y + 50);
+            ctx.fillText(counter.substring(0, counterState), this.x, this.y + 50);
 
         }
 
