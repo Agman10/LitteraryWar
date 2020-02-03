@@ -189,6 +189,8 @@ class Player {
     }
 
     hit() {
+        //if (this.lives < 0) this.alive = false
+
         if (!this.exploding && this.alive) {
             /* if (this.health > 0) {
                 //this.invis = true
@@ -200,13 +202,13 @@ class Player {
             this.lives -= 1;
             this.exploding = true;
             this.explode()
-            this.health = 2;
+            //this.health = 2;
             //}
         }
     }
 
     explode() {
-        if (this.exploding) {
+        if (this.exploding && this.alive) {
             this.explodingFrame--
         }
     }
@@ -291,4 +293,4 @@ class Player {
         }
     }
 }
-player = new Player(200, 300);
+player = new Player(200, 250);

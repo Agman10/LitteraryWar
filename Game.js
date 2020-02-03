@@ -14,6 +14,10 @@ class Game {
         });
         document.addEventListener("Enter", () => {
             if (player.alive) this.pause();
+            else if (!player.alive) this.reset();
+        });
+        document.addEventListener("Space", () => {
+            if (this.paused) this.pause();
         });
         this.spawnEnemy();
         setInterval(() => this.loop(), 1000 / 60);

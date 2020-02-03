@@ -10,6 +10,11 @@ class Wall {
     }
     update() {
         if (this.direction == 0) {
+            if (this.x > 170 && this.x < 250 &&
+                this.y > 70 && this.y < 300) {
+                this.x = (Math.floor(Math.random() * 47)) * 10;
+                this.y = (Math.floor(Math.random() * 40)) * 10;
+            }
             switch (this.size) {
                 case 0:
                     this.width = 30
@@ -35,6 +40,11 @@ class Wall {
         }
 
         if (this.direction == 1) {
+            if (this.x > 40 && this.x < 250 &&
+                this.y > 220 && this.y < 300) {
+                this.x = (Math.floor(Math.random() * 47)) * 10;
+                this.y = (Math.floor(Math.random() * 40)) * 10;
+            }
             switch (this.size) {
                 case 0:
                     this.width = 95;
@@ -118,5 +128,3 @@ let randomPosX = (Math.floor(Math.random() * 47)) * 10
 let randomPosY = (Math.floor(Math.random() * 40)) * 10
 
 wall = new Wall(randomPosX, randomPosY, this.height, this.width)
-//wall = new Wall(x, y, height, width)
-//wall = new Wall(randomPosX, randomPosY, 30, 150)
