@@ -119,15 +119,23 @@ class Enemy {
         /* if (this.invis) {
             ctx.fillStyle = "green";
         } */
-        ctx.font = "20px Arial";
+
         //if (!this.invis) ctx.fillStyle = this.color;
         ctx.fillStyle = this.color;
         ctx.strokeStyle = "white";
         //ctx.strokeRect(this.x, this.y, this.width, this.height);
-        ctx.fillText("ENE", this.x + 4, this.y + 20);
+
+        /* ctx.font = "20px Arial";
+        ctx.fillText("ENE", this.x + 4, this.y + 20); */
+        ctx.font = "20px Arial";
+        ctx.fillText("PRO", this.x + 4, this.y + 20);
         ctx.save();
-        ctx.font = "30px Arial";
-        ctx.fillText("MY", this.x + 2, this.y + 50);
+
+        /* ctx.font = "30px Arial";
+        ctx.fillText("MY", this.x + 2, this.y + 50); */
+
+        ctx.font = "18px Arial";
+        ctx.fillText("BLEM", this.x, this.y + 45);
         ctx.restore();
         ctx.restore();
 

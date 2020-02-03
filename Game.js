@@ -6,7 +6,7 @@ class Game {
 
     start() {
 
-        document.addEventListener("KeyX", () => {
+        document.addEventListener("KeyA", () => {
             powerUp.shoot();
         });
         document.addEventListener("KeyR", () => {
@@ -47,7 +47,7 @@ class Game {
             ctx.fillText("Controlls:", 5, 400);
             ctx.fillText("Move: Arrow keys", 5, 420);
             ctx.fillText("Shoot: Space", 5, 440);
-            ctx.fillText("Spread power up: X", 5, 460);
+            ctx.fillText("Spread power up: A", 5, 460);
             ctx.fillText("Reset: R (while paused or on game over)", 5, 480);
         }
         else if (this.paused) this.paused = false
@@ -208,10 +208,10 @@ class Game {
         }
         if (player.explodingFrame < 0) {
             player.exploding = false;
-            player.explodingFrame = 105;
+            player.explodingFrame = 120;
             player.invis = true
             player.x = 200;
-            player.y = 300;
+            player.y = 250;
         }
     }
 
@@ -221,7 +221,7 @@ class Game {
         }
         if (player.invisFrame < 0) {
             player.invis = false
-            player.invisFrame = 105;
+            player.invisFrame = 120;
             player.color = "white"
 
         }

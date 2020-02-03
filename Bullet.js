@@ -40,19 +40,28 @@ class Bullet {
 
         if (this.dir == 270 || this.dir == 90) {
             ctx.textAlign = "center";
-            ctx.fillText("Z", this.x + 8, this.y + 14);
+            /* ctx.fillText("Z", this.x + 8, this.y + 14);
             ctx.fillText("A", this.x + 8, this.y + 29);
-            ctx.fillText("P", this.x + 8, this.y + 44);
+            ctx.fillText("P", this.x + 8, this.y + 44); */
+            ctx.fillText("F", this.x + 8, this.y + 14);
+            ctx.fillText("I", this.x + 8, this.y + 29);
+            ctx.fillText("X", this.x + 8, this.y + 44);
         } if (this.dir == 0 || this.dir == 180) {
             //ctx.rotate((Math.PI / 180) * 45);
-            ctx.fillText("Z", this.x + 2, this.y + 15);
+            /* ctx.fillText("Z", this.x + 2, this.y + 15);
             ctx.fillText("A", this.x + 17, this.y + 15);
-            ctx.fillText("P", this.x + 32, this.y + 15);
+            ctx.fillText("P", this.x + 32, this.y + 15); */
+            ctx.fillText("F", this.x + 2, this.y + 15);
+            ctx.fillText("I", this.x + 20, this.y + 15);
+            ctx.fillText("X", this.x + 32, this.y + 15);
             //ctx.strokeRect(this.x, this.y, this.width, this.height)
         } if (this.dir == 315) {
-            ctx.fillText("Z", this.x, this.y + 44);
+            /* ctx.fillText("Z", this.x, this.y + 44);
             ctx.fillText("A", this.x + 8, this.y + 29);
-            ctx.fillText("P", this.x + 16, this.y + 14);
+            ctx.fillText("P", this.x + 16, this.y + 14); */
+            ctx.fillText("F", this.x, this.y + 44);
+            ctx.fillText("I", this.x + 11, this.y + 29);
+            ctx.fillText("X", this.x + 16, this.y + 14);
         } if (this.dir == 45) {
             //ctx.translate(this.x, this.y)
             /* ctx.translate(this.x, this.y);
@@ -63,17 +72,27 @@ class Bullet {
             ctx.fillText("A", this.x + 17, this.y + 15);
             ctx.fillText("P", this.x + 32, this.y + 15); */
             //ctx.strokeRect(this.x, this.y, this.width, this.height)
-            ctx.fillText("Z", this.x, this.y + 14);
+
+            /* ctx.fillText("Z", this.x, this.y + 14);
             ctx.fillText("A", this.x + 8, this.y + 28);
-            ctx.fillText("P", this.x + 16, this.y + 44);
+            ctx.fillText("P", this.x + 16, this.y + 44); */
+            ctx.fillText("F", this.x, this.y + 14);
+            ctx.fillText("I", this.x + 11, this.y + 28);
+            ctx.fillText("X", this.x + 16, this.y + 44);
         } if (this.dir == 135) {
-            ctx.fillText("Z", this.x, this.y + 44);
+            /* ctx.fillText("Z", this.x, this.y + 44);
             ctx.fillText("A", this.x + 8, this.y + 29);
-            ctx.fillText("P", this.x + 16, this.y + 14);
+            ctx.fillText("P", this.x + 16, this.y + 14); */
+            ctx.fillText("F", this.x, this.y + 44);
+            ctx.fillText("I", this.x + 11, this.y + 29);
+            ctx.fillText("X", this.x + 16, this.y + 14);
         } if (this.dir == 225) {
-            ctx.fillText("Z", this.x, this.y + 14);
+            /* ctx.fillText("Z", this.x, this.y + 14);
             ctx.fillText("A", this.x + 8, this.y + 28);
-            ctx.fillText("P", this.x + 16, this.y + 44);
+            ctx.fillText("P", this.x + 16, this.y + 44); */
+            ctx.fillText("F", this.x, this.y + 14);
+            ctx.fillText("I", this.x + 11, this.y + 28);
+            ctx.fillText("X", this.x + 16, this.y + 44);
         }
         ctx.restore();
     }
@@ -92,7 +111,8 @@ class EnemyBullet extends Bullet {
 
     draw() {
         ctx.save()
-        ctx.font = "14px Arial";
+        //ctx.font = "14px Arial";
+        ctx.font = "12px Arial";
         ctx.fillStyle = this.color;
         ctx.strokeStyle = "white";
 
@@ -105,10 +125,16 @@ class EnemyBullet extends Bullet {
 
 
         ctx.textAlign = "center";
-        ctx.fillText("Z", this.x + 6, this.y + 12);
+        /* ctx.fillText("Z", this.x + 6, this.y + 12);
         ctx.fillText("A", this.x + 18, this.y + 12);
         ctx.fillText("P", this.x + 6, this.y + 24);
-        ctx.fillText("!", this.x + 18, this.y + 24);
+        ctx.fillText("!", this.x + 18, this.y + 24); */
+        ctx.fillText("E", this.x + 4, this.y + 12);
+        ctx.fillText("R", this.x + 12, this.y + 12);
+        ctx.fillText("R", this.x + 20, this.y + 12);
+        ctx.fillText("O", this.x + 4, this.y + 24);
+        ctx.fillText("R", this.x + 14, this.y + 24);
+        ctx.fillText("!", this.x + 22, this.y + 24);
         ctx.restore();
 
     }
