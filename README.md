@@ -11,3 +11,5 @@
 2020-01-27: power ups that randomly drops from enemies has been added but drop rates and amount of ammo you get may need to be changed. reset button has also been added
 
 2020-01-28: tried to add multiple walls at the same time but i couldn't make it work today, but walls now spawn in different sizes and in different angles
+
+2020-02-03: the words in the game need to be replaced with words from the cource: "teknik"
