@@ -177,7 +177,7 @@ class Player {
             player.color = "orange"
 
             ctx.save();
-            ctx.strokeRect(this.x, this.y, this.width, this.height);
+            //ctx.strokeRect(this.x, this.y, this.width, this.height);
             ctx.font = "16px Arial";
             ctx.fillStyle = this.color;
             //ctx.fillText("EXPLO", this.x, this.y + 12);
